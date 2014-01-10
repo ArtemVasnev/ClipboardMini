@@ -7,12 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AC620009188007D4009771B3 /* CMAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AC62FFFB188007D3009771B3 /* CMAppDelegate.m */; };
+		AC62000A188007D4009771B3 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC62FFFC188007D3009771B3 /* MainMenu.xib */; };
+		AC62000B188007D4009771B3 /* CMHighlightingView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC62FFFE188007D4009771B3 /* CMHighlightingView.m */; };
+		AC62000C188007D4009771B3 /* CMTextMenuItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AC620000188007D4009771B3 /* CMTextMenuItemCell.m */; };
+		AC62000D188007D4009771B3 /* CMTextMenuItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC620001188007D4009771B3 /* CMTextMenuItemCell.xib */; };
+		AC62000E188007D4009771B3 /* CMFileMenuItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AC620003188007D4009771B3 /* CMFileMenuItemCell.m */; };
+		AC62000F188007D4009771B3 /* CMFileMenuItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC620004188007D4009771B3 /* CMFileMenuItemCell.xib */; };
+		AC620010188007D4009771B3 /* CMMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = AC620006188007D4009771B3 /* CMMenu.m */; };
+		AC620011188007D4009771B3 /* CMMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC620008188007D4009771B3 /* CMMenuController.m */; };
+		AC62001E18800805009771B3 /* NSMutableArray+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = AC62001518800805009771B3 /* NSMutableArray+Helpers.m */; };
+		AC62001F18800805009771B3 /* NSImage+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = AC62001718800805009771B3 /* NSImage+Helpers.m */; };
+		AC62002018800805009771B3 /* NSURL+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = AC62001918800805009771B3 /* NSURL+Helpers.m */; };
+		AC62002118800805009771B3 /* CMClipboardChecker.m in Sources */ = {isa = PBXBuildFile; fileRef = AC62001B18800805009771B3 /* CMClipboardChecker.m */; };
+		AC62002218800805009771B3 /* CMClipboardItem.m in Sources */ = {isa = PBXBuildFile; fileRef = AC62001D18800805009771B3 /* CMClipboardItem.m */; };
 		AC62FFC7188007BC009771B3 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC62FFC6188007BC009771B3 /* Cocoa.framework */; };
 		AC62FFD1188007BC009771B3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AC62FFCF188007BC009771B3 /* InfoPlist.strings */; };
 		AC62FFD3188007BD009771B3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AC62FFD2188007BD009771B3 /* main.m */; };
 		AC62FFD7188007BD009771B3 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = AC62FFD5188007BD009771B3 /* Credits.rtf */; };
-		AC62FFDA188007BD009771B3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AC62FFD9188007BD009771B3 /* AppDelegate.m */; };
-		AC62FFDD188007BD009771B3 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC62FFDB188007BD009771B3 /* MainMenu.xib */; };
 		AC62FFDF188007BD009771B3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC62FFDE188007BD009771B3 /* Images.xcassets */; };
 		AC62FFE6188007BD009771B3 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC62FFE5188007BD009771B3 /* XCTest.framework */; };
 		AC62FFE7188007BD009771B3 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC62FFC6188007BC009771B3 /* Cocoa.framework */; };
@@ -31,6 +43,25 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AC620000188007D4009771B3 /* CMTextMenuItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMTextMenuItemCell.m; sourceTree = "<group>"; };
+		AC620001188007D4009771B3 /* CMTextMenuItemCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CMTextMenuItemCell.xib; sourceTree = "<group>"; };
+		AC620002188007D4009771B3 /* CMFileMenuItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMFileMenuItemCell.h; sourceTree = "<group>"; };
+		AC620003188007D4009771B3 /* CMFileMenuItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMFileMenuItemCell.m; sourceTree = "<group>"; };
+		AC620004188007D4009771B3 /* CMFileMenuItemCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CMFileMenuItemCell.xib; sourceTree = "<group>"; };
+		AC620005188007D4009771B3 /* CMMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMMenu.h; sourceTree = "<group>"; };
+		AC620006188007D4009771B3 /* CMMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMMenu.m; sourceTree = "<group>"; };
+		AC620007188007D4009771B3 /* CMMenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMMenuController.h; sourceTree = "<group>"; };
+		AC620008188007D4009771B3 /* CMMenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMMenuController.m; sourceTree = "<group>"; };
+		AC62001418800805009771B3 /* NSMutableArray+Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+Helpers.h"; sourceTree = "<group>"; };
+		AC62001518800805009771B3 /* NSMutableArray+Helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+Helpers.m"; sourceTree = "<group>"; };
+		AC62001618800805009771B3 /* NSImage+Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSImage+Helpers.h"; sourceTree = "<group>"; };
+		AC62001718800805009771B3 /* NSImage+Helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSImage+Helpers.m"; sourceTree = "<group>"; };
+		AC62001818800805009771B3 /* NSURL+Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+Helpers.h"; sourceTree = "<group>"; };
+		AC62001918800805009771B3 /* NSURL+Helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+Helpers.m"; sourceTree = "<group>"; };
+		AC62001A18800805009771B3 /* CMClipboardChecker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMClipboardChecker.h; sourceTree = "<group>"; };
+		AC62001B18800805009771B3 /* CMClipboardChecker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMClipboardChecker.m; sourceTree = "<group>"; };
+		AC62001C18800805009771B3 /* CMClipboardItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMClipboardItem.h; sourceTree = "<group>"; };
+		AC62001D18800805009771B3 /* CMClipboardItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMClipboardItem.m; sourceTree = "<group>"; };
 		AC62FFC3188007BC009771B3 /* ClipboardMini.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClipboardMini.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC62FFC6188007BC009771B3 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		AC62FFC9188007BC009771B3 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -41,15 +72,18 @@
 		AC62FFD2188007BD009771B3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		AC62FFD4188007BD009771B3 /* ClipboardMini-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ClipboardMini-Prefix.pch"; sourceTree = "<group>"; };
 		AC62FFD6188007BD009771B3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
-		AC62FFD8188007BD009771B3 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		AC62FFD9188007BD009771B3 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		AC62FFDC188007BD009771B3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		AC62FFDE188007BD009771B3 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		AC62FFE4188007BD009771B3 /* ClipboardMiniTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ClipboardMiniTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC62FFE5188007BD009771B3 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		AC62FFEC188007BD009771B3 /* ClipboardMiniTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ClipboardMiniTests-Info.plist"; sourceTree = "<group>"; };
 		AC62FFEE188007BD009771B3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		AC62FFF0188007BD009771B3 /* ClipboardMiniTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ClipboardMiniTests.m; sourceTree = "<group>"; };
+		AC62FFFA188007D3009771B3 /* CMAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMAppDelegate.h; sourceTree = "<group>"; };
+		AC62FFFB188007D3009771B3 /* CMAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMAppDelegate.m; sourceTree = "<group>"; };
+		AC62FFFC188007D3009771B3 /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
+		AC62FFFD188007D3009771B3 /* CMHighlightingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMHighlightingView.h; sourceTree = "<group>"; };
+		AC62FFFE188007D4009771B3 /* CMHighlightingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMHighlightingView.m; sourceTree = "<group>"; };
+		AC62FFFF188007D4009771B3 /* CMTextMenuItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMTextMenuItemCell.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +107,56 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AC620012188007EA009771B3 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				AC620007188007D4009771B3 /* CMMenuController.h */,
+				AC620008188007D4009771B3 /* CMMenuController.m */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		AC620013188007F2009771B3 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				AC62FFFD188007D3009771B3 /* CMHighlightingView.h */,
+				AC62FFFE188007D4009771B3 /* CMHighlightingView.m */,
+				AC62FFFF188007D4009771B3 /* CMTextMenuItemCell.h */,
+				AC620000188007D4009771B3 /* CMTextMenuItemCell.m */,
+				AC620001188007D4009771B3 /* CMTextMenuItemCell.xib */,
+				AC620002188007D4009771B3 /* CMFileMenuItemCell.h */,
+				AC620003188007D4009771B3 /* CMFileMenuItemCell.m */,
+				AC620004188007D4009771B3 /* CMFileMenuItemCell.xib */,
+				AC620005188007D4009771B3 /* CMMenu.h */,
+				AC620006188007D4009771B3 /* CMMenu.m */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		AC6200231880080A009771B3 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				AC62001418800805009771B3 /* NSMutableArray+Helpers.h */,
+				AC62001518800805009771B3 /* NSMutableArray+Helpers.m */,
+				AC62001618800805009771B3 /* NSImage+Helpers.h */,
+				AC62001718800805009771B3 /* NSImage+Helpers.m */,
+				AC62001818800805009771B3 /* NSURL+Helpers.h */,
+				AC62001918800805009771B3 /* NSURL+Helpers.m */,
+			);
+			name = Helpers;
+			sourceTree = "<group>";
+		};
+		AC62002418800811009771B3 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				AC62001A18800805009771B3 /* CMClipboardChecker.h */,
+				AC62001B18800805009771B3 /* CMClipboardChecker.m */,
+				AC62001C18800805009771B3 /* CMClipboardItem.h */,
+				AC62001D18800805009771B3 /* CMClipboardItem.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		AC62FFBA188007BC009771B3 = {
 			isa = PBXGroup;
 			children = (
@@ -115,9 +199,13 @@
 		AC62FFCC188007BC009771B3 /* ClipboardMini */ = {
 			isa = PBXGroup;
 			children = (
-				AC62FFD8188007BD009771B3 /* AppDelegate.h */,
-				AC62FFD9188007BD009771B3 /* AppDelegate.m */,
-				AC62FFDB188007BD009771B3 /* MainMenu.xib */,
+				AC62FFFA188007D3009771B3 /* CMAppDelegate.h */,
+				AC62FFFB188007D3009771B3 /* CMAppDelegate.m */,
+				AC62FFFC188007D3009771B3 /* MainMenu.xib */,
+				AC6200231880080A009771B3 /* Helpers */,
+				AC62002418800811009771B3 /* Model */,
+				AC620013188007F2009771B3 /* View */,
+				AC620012188007EA009771B3 /* Controller */,
 				AC62FFDE188007BD009771B3 /* Images.xcassets */,
 				AC62FFCD188007BC009771B3 /* Supporting Files */,
 			);
@@ -230,10 +318,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC62000D188007D4009771B3 /* CMTextMenuItemCell.xib in Resources */,
 				AC62FFD1188007BC009771B3 /* InfoPlist.strings in Resources */,
 				AC62FFDF188007BD009771B3 /* Images.xcassets in Resources */,
 				AC62FFD7188007BD009771B3 /* Credits.rtf in Resources */,
-				AC62FFDD188007BD009771B3 /* MainMenu.xib in Resources */,
+				AC62000A188007D4009771B3 /* MainMenu.xib in Resources */,
+				AC62000F188007D4009771B3 /* CMFileMenuItemCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -252,8 +342,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AC62FFDA188007BD009771B3 /* AppDelegate.m in Sources */,
+				AC62002018800805009771B3 /* NSURL+Helpers.m in Sources */,
+				AC62000C188007D4009771B3 /* CMTextMenuItemCell.m in Sources */,
+				AC62002118800805009771B3 /* CMClipboardChecker.m in Sources */,
+				AC62002218800805009771B3 /* CMClipboardItem.m in Sources */,
+				AC620009188007D4009771B3 /* CMAppDelegate.m in Sources */,
+				AC62000E188007D4009771B3 /* CMFileMenuItemCell.m in Sources */,
+				AC62001E18800805009771B3 /* NSMutableArray+Helpers.m in Sources */,
+				AC62000B188007D4009771B3 /* CMHighlightingView.m in Sources */,
+				AC620010188007D4009771B3 /* CMMenu.m in Sources */,
+				AC620011188007D4009771B3 /* CMMenuController.m in Sources */,
 				AC62FFD3188007BD009771B3 /* main.m in Sources */,
+				AC62001F18800805009771B3 /* NSImage+Helpers.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -290,14 +390,6 @@
 				AC62FFD6188007BD009771B3 /* en */,
 			);
 			name = Credits.rtf;
-			sourceTree = "<group>";
-		};
-		AC62FFDB188007BD009771B3 /* MainMenu.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				AC62FFDC188007BD009771B3 /* Base */,
-			);
-			name = MainMenu.xib;
 			sourceTree = "<group>";
 		};
 		AC62FFED188007BD009771B3 /* InfoPlist.strings */ = {
