@@ -1,0 +1,479 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		AC62FFC7188007BC009771B3 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC62FFC6188007BC009771B3 /* Cocoa.framework */; };
+		AC62FFD1188007BC009771B3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AC62FFCF188007BC009771B3 /* InfoPlist.strings */; };
+		AC62FFD3188007BD009771B3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AC62FFD2188007BD009771B3 /* main.m */; };
+		AC62FFD7188007BD009771B3 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = AC62FFD5188007BD009771B3 /* Credits.rtf */; };
+		AC62FFDA188007BD009771B3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AC62FFD9188007BD009771B3 /* AppDelegate.m */; };
+		AC62FFDD188007BD009771B3 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC62FFDB188007BD009771B3 /* MainMenu.xib */; };
+		AC62FFDF188007BD009771B3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC62FFDE188007BD009771B3 /* Images.xcassets */; };
+		AC62FFE6188007BD009771B3 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC62FFE5188007BD009771B3 /* XCTest.framework */; };
+		AC62FFE7188007BD009771B3 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC62FFC6188007BC009771B3 /* Cocoa.framework */; };
+		AC62FFEF188007BD009771B3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AC62FFED188007BD009771B3 /* InfoPlist.strings */; };
+		AC62FFF1188007BD009771B3 /* ClipboardMiniTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AC62FFF0188007BD009771B3 /* ClipboardMiniTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		AC62FFE8188007BD009771B3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AC62FFBB188007BC009771B3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AC62FFC2188007BC009771B3;
+			remoteInfo = ClipboardMini;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		AC62FFC3188007BC009771B3 /* ClipboardMini.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClipboardMini.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AC62FFC6188007BC009771B3 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		AC62FFC9188007BC009771B3 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		AC62FFCA188007BC009771B3 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		AC62FFCB188007BC009771B3 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		AC62FFCE188007BC009771B3 /* ClipboardMini-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ClipboardMini-Info.plist"; sourceTree = "<group>"; };
+		AC62FFD0188007BC009771B3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		AC62FFD2188007BD009771B3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		AC62FFD4188007BD009771B3 /* ClipboardMini-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ClipboardMini-Prefix.pch"; sourceTree = "<group>"; };
+		AC62FFD6188007BD009771B3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		AC62FFD8188007BD009771B3 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		AC62FFD9188007BD009771B3 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		AC62FFDC188007BD009771B3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		AC62FFDE188007BD009771B3 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		AC62FFE4188007BD009771B3 /* ClipboardMiniTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ClipboardMiniTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AC62FFE5188007BD009771B3 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		AC62FFEC188007BD009771B3 /* ClipboardMiniTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ClipboardMiniTests-Info.plist"; sourceTree = "<group>"; };
+		AC62FFEE188007BD009771B3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		AC62FFF0188007BD009771B3 /* ClipboardMiniTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ClipboardMiniTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AC62FFC0188007BC009771B3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AC62FFC7188007BC009771B3 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AC62FFE1188007BD009771B3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AC62FFE7188007BD009771B3 /* Cocoa.framework in Frameworks */,
+				AC62FFE6188007BD009771B3 /* XCTest.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		AC62FFBA188007BC009771B3 = {
+			isa = PBXGroup;
+			children = (
+				AC62FFCC188007BC009771B3 /* ClipboardMini */,
+				AC62FFEA188007BD009771B3 /* ClipboardMiniTests */,
+				AC62FFC5188007BC009771B3 /* Frameworks */,
+				AC62FFC4188007BC009771B3 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		AC62FFC4188007BC009771B3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AC62FFC3188007BC009771B3 /* ClipboardMini.app */,
+				AC62FFE4188007BD009771B3 /* ClipboardMiniTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		AC62FFC5188007BC009771B3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AC62FFC6188007BC009771B3 /* Cocoa.framework */,
+				AC62FFE5188007BD009771B3 /* XCTest.framework */,
+				AC62FFC8188007BC009771B3 /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		AC62FFC8188007BC009771B3 /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AC62FFC9188007BC009771B3 /* AppKit.framework */,
+				AC62FFCA188007BC009771B3 /* CoreData.framework */,
+				AC62FFCB188007BC009771B3 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		AC62FFCC188007BC009771B3 /* ClipboardMini */ = {
+			isa = PBXGroup;
+			children = (
+				AC62FFD8188007BD009771B3 /* AppDelegate.h */,
+				AC62FFD9188007BD009771B3 /* AppDelegate.m */,
+				AC62FFDB188007BD009771B3 /* MainMenu.xib */,
+				AC62FFDE188007BD009771B3 /* Images.xcassets */,
+				AC62FFCD188007BC009771B3 /* Supporting Files */,
+			);
+			path = ClipboardMini;
+			sourceTree = "<group>";
+		};
+		AC62FFCD188007BC009771B3 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				AC62FFCE188007BC009771B3 /* ClipboardMini-Info.plist */,
+				AC62FFCF188007BC009771B3 /* InfoPlist.strings */,
+				AC62FFD2188007BD009771B3 /* main.m */,
+				AC62FFD4188007BD009771B3 /* ClipboardMini-Prefix.pch */,
+				AC62FFD5188007BD009771B3 /* Credits.rtf */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		AC62FFEA188007BD009771B3 /* ClipboardMiniTests */ = {
+			isa = PBXGroup;
+			children = (
+				AC62FFF0188007BD009771B3 /* ClipboardMiniTests.m */,
+				AC62FFEB188007BD009771B3 /* Supporting Files */,
+			);
+			path = ClipboardMiniTests;
+			sourceTree = "<group>";
+		};
+		AC62FFEB188007BD009771B3 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				AC62FFEC188007BD009771B3 /* ClipboardMiniTests-Info.plist */,
+				AC62FFED188007BD009771B3 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		AC62FFC2188007BC009771B3 /* ClipboardMini */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AC62FFF4188007BD009771B3 /* Build configuration list for PBXNativeTarget "ClipboardMini" */;
+			buildPhases = (
+				AC62FFBF188007BC009771B3 /* Sources */,
+				AC62FFC0188007BC009771B3 /* Frameworks */,
+				AC62FFC1188007BC009771B3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ClipboardMini;
+			productName = ClipboardMini;
+			productReference = AC62FFC3188007BC009771B3 /* ClipboardMini.app */;
+			productType = "com.apple.product-type.application";
+		};
+		AC62FFE3188007BD009771B3 /* ClipboardMiniTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AC62FFF7188007BD009771B3 /* Build configuration list for PBXNativeTarget "ClipboardMiniTests" */;
+			buildPhases = (
+				AC62FFE0188007BD009771B3 /* Sources */,
+				AC62FFE1188007BD009771B3 /* Frameworks */,
+				AC62FFE2188007BD009771B3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AC62FFE9188007BD009771B3 /* PBXTargetDependency */,
+			);
+			name = ClipboardMiniTests;
+			productName = ClipboardMiniTests;
+			productReference = AC62FFE4188007BD009771B3 /* ClipboardMiniTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AC62FFBB188007BC009771B3 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = Artem;
+				TargetAttributes = {
+					AC62FFE3188007BD009771B3 = {
+						TestTargetID = AC62FFC2188007BC009771B3;
+					};
+				};
+			};
+			buildConfigurationList = AC62FFBE188007BC009771B3 /* Build configuration list for PBXProject "ClipboardMini" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = AC62FFBA188007BC009771B3;
+			productRefGroup = AC62FFC4188007BC009771B3 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AC62FFC2188007BC009771B3 /* ClipboardMini */,
+				AC62FFE3188007BD009771B3 /* ClipboardMiniTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AC62FFC1188007BC009771B3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AC62FFD1188007BC009771B3 /* InfoPlist.strings in Resources */,
+				AC62FFDF188007BD009771B3 /* Images.xcassets in Resources */,
+				AC62FFD7188007BD009771B3 /* Credits.rtf in Resources */,
+				AC62FFDD188007BD009771B3 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AC62FFE2188007BD009771B3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AC62FFEF188007BD009771B3 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AC62FFBF188007BC009771B3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AC62FFDA188007BD009771B3 /* AppDelegate.m in Sources */,
+				AC62FFD3188007BD009771B3 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AC62FFE0188007BD009771B3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AC62FFF1188007BD009771B3 /* ClipboardMiniTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		AC62FFE9188007BD009771B3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AC62FFC2188007BC009771B3 /* ClipboardMini */;
+			targetProxy = AC62FFE8188007BD009771B3 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		AC62FFCF188007BC009771B3 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AC62FFD0188007BC009771B3 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		AC62FFD5188007BD009771B3 /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AC62FFD6188007BD009771B3 /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		AC62FFDB188007BD009771B3 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AC62FFDC188007BD009771B3 /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+		AC62FFED188007BD009771B3 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AC62FFEE188007BD009771B3 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		AC62FFF2188007BD009771B3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		AC62FFF3188007BD009771B3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		AC62FFF5188007BD009771B3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ClipboardMini/ClipboardMini-Prefix.pch";
+				INFOPLIST_FILE = "ClipboardMini/ClipboardMini-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		AC62FFF6188007BD009771B3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ClipboardMini/ClipboardMini-Prefix.pch";
+				INFOPLIST_FILE = "ClipboardMini/ClipboardMini-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		AC62FFF8188007BD009771B3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/ClipboardMini.app/Contents/MacOS/ClipboardMini";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ClipboardMini/ClipboardMini-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "ClipboardMiniTests/ClipboardMiniTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		AC62FFF9188007BD009771B3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/ClipboardMini.app/Contents/MacOS/ClipboardMini";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ClipboardMini/ClipboardMini-Prefix.pch";
+				INFOPLIST_FILE = "ClipboardMiniTests/ClipboardMiniTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AC62FFBE188007BC009771B3 /* Build configuration list for PBXProject "ClipboardMini" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AC62FFF2188007BD009771B3 /* Debug */,
+				AC62FFF3188007BD009771B3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AC62FFF4188007BD009771B3 /* Build configuration list for PBXNativeTarget "ClipboardMini" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AC62FFF5188007BD009771B3 /* Debug */,
+				AC62FFF6188007BD009771B3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		AC62FFF7188007BD009771B3 /* Build configuration list for PBXNativeTarget "ClipboardMiniTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AC62FFF8188007BD009771B3 /* Debug */,
+				AC62FFF9188007BD009771B3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = AC62FFBB188007BC009771B3 /* Project object */;
+}
