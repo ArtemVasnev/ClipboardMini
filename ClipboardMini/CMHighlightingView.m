@@ -25,8 +25,6 @@
 
 - (void)mouseUp:(NSEvent *)theEvent {
     self.isHighlighted = NO;
-    NSMenuItem *item = [self enclosingMenuItem];
-    [NSApp sendAction:[item action] to:[item target] from:item];
 }
 
 - (void)updateTrackingAreas {

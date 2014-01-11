@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="5037.2" systemVersion="13C32" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="5037.2"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
+            <connections>
+                <outlet property="delegate" destination="Voe-Tx-rLC" id="GzC-gU-4Uq"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application"/>
+        <customObject id="Voe-Tx-rLC" customClass="CMAppDelegate">
+            <connections>
+                <outlet property="menuController" destination="EAg-cd-e2v" id="iU8-oL-0Hb"/>
+            </connections>
+        </customObject>
+        <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
+        <menu title="Main Menu" systemMenu="main" id="AYu-sK-qS6">
+            <items>
+                <menuItem title="ClipboardMini" id="1Xt-HY-uBw">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="ClipboardMini" systemMenu="apple" id="uQy-DD-JDr">
+                        <items>
+                            <menuItem title="About ClipboardMini" id="5kV-Vb-QxS">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="orderFrontStandardAboutPanel:" target="-1" id="Exp-CZ-Vem"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="VOq-y0-SEH"/>
+                            <menuItem title="Preferences…" keyEquivalent="," id="BOF-NM-1cW"/>
+                            <menuItem isSeparatorItem="YES" id="wFC-TO-SCJ"/>
+                            <menuItem title="Services" id="NMo-om-nkz">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="Services" systemMenu="services" id="hz9-B4-Xy5"/>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="4je-JR-u6R"/>
+                            <menuItem title="Hide ClipboardMini" keyEquivalent="h" id="Olw-nP-bQN">
+                                <connections>
+                                    <action selector="hide:" target="-1" id="PnN-Uc-m68"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Hide Others" keyEquivalent="h" id="Vdr-fp-XzO">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                <connections>
+                                    <action selector="hideOtherApplications:" target="-1" id="VT4-aY-XCT"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Show All" id="Kd2-mp-pUS">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="unhideAllApplications:" target="-1" id="Dhg-Le-xox"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="kCx-OE-vgT"/>
+                            <menuItem title="Quit ClipboardMini" keyEquivalent="q" id="4sb-4s-VLi">
+                                <connections>
+                                    <action selector="terminate:" target="-1" id="Te7-pn-YzF"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
+                <menuItem title="Item" id="yzz-ly-Pby">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+                <menuItem title="Item" id="geA-pL-edY">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" id="ubQ-2P-kkh">
+                        <items>
+                            <menuItem title="Item 1" id="fpu-ey-PTa">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                            </menuItem>
+                            <menuItem title="Item 2" id="Nc9-FL-Nzw">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                            </menuItem>
+                            <menuItem title="Item 3" id="qpE-uk-bu8">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
+            </items>
+        </menu>
+        <menu showsStateColumn="NO" autoenablesItems="NO" id="YhB-xx-QGO" customClass="CMMenu">
+            <items>
+                <menuItem title="Search field" tag="1000" id="QXc-74-CIx">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <outlet property="view" destination="1hF-qE-h30" id="hcN-yx-pIo"/>
+                    </connections>
+                </menuItem>
+            </items>
+            <connections>
+                <outlet property="dataSource" destination="EAg-cd-e2v" id="33S-WQ-ur2"/>
+                <outlet property="delegate" destination="EAg-cd-e2v" id="0YZ-cK-jun"/>
+            </connections>
+        </menu>
+        <customObject id="EAg-cd-e2v" userLabel="Menu Controller" customClass="CMMenuController">
+            <connections>
+                <outlet property="menu" destination="YhB-xx-QGO" id="SMN-rp-g6i"/>
+                <outlet property="searchField" destination="GCJ-pu-X7e" id="hlc-b5-TU7"/>
+            </connections>
+        </customObject>
+        <customView id="1hF-qE-h30" userLabel="Search Cell">
+            <rect key="frame" x="0.0" y="0.0" width="550" height="26"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <searchField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="GCJ-pu-X7e">
+                    <rect key="frame" x="20" y="2" width="510" height="22"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" focusRingType="none" placeholderString="Search clipboard" usesSingleLineMode="YES" bezelStyle="round" id="9wz-Ni-j8j">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </searchFieldCell>
+                    <connections>
+                        <outlet property="delegate" destination="EAg-cd-e2v" id="H73-Sa-IVB"/>
+                    </connections>
+                </searchField>
+            </subviews>
+            <constraints>
+                <constraint firstItem="GCJ-pu-X7e" firstAttribute="leading" secondItem="1hF-qE-h30" secondAttribute="leading" constant="20" id="EHe-X0-GY8"/>
+                <constraint firstAttribute="trailing" secondItem="GCJ-pu-X7e" secondAttribute="trailing" constant="20" id="RtZ-Ke-ZkJ"/>
+                <constraint firstItem="GCJ-pu-X7e" firstAttribute="top" secondItem="1hF-qE-h30" secondAttribute="top" constant="2" id="fHq-H1-gIv"/>
+                <constraint firstAttribute="bottom" secondItem="GCJ-pu-X7e" secondAttribute="bottom" constant="2" id="oKa-Nq-zDM"/>
+            </constraints>
+            <connections>
+                <outlet property="menu" destination="YhB-xx-QGO" id="F6X-TE-t3U"/>
+            </connections>
+        </customView>
+    </objects>
+</document>

@@ -33,7 +33,7 @@
     
     NSUInteger menuItemCount = [_dataSource numberOfItemsInMenu:self];
     
-    for (NSUInteger idx = 1; idx < menuItemCount; idx++) {
+    for (NSUInteger idx = 1; idx <= menuItemCount; idx++) {
         NSMenuItem *menuItem = [_dataSource menu:self menuItemForRow:(idx - 1)];
         [self insertItem:menuItem atIndex:idx];
     }

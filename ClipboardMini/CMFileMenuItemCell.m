@@ -31,9 +31,11 @@
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
             iconView.image = icon;
             [spinner stopAnimation:nil];
+            [spinner setHidden:YES];
         }];
     }];
     
+    [spinner setHidden:NO];
     [spinner performSelector:@selector(startAnimation:)
                   withObject:self
                   afterDelay:0.0
@@ -43,6 +45,12 @@
 
 #pragma mark -
 #pragma mark Mouse Events
+
+- (void)mouseUp:(NSEvent *)theEvent {
+    [super mouseUp:theEvent];
+    NSMenuItem *item = [self enclosingMenuItem];
+    [NSApp sendAction:[item action] to:[item target] from:item];
+}
 
 
 #pragma mark -

@@ -9,8 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "CMMenu.h"
 
-@interface CMMenuController : NSObject <CMMenuDataSource, NSMenuDelegate>
+@interface CMMenuController : NSObject <CMMenuDataSource, NSMenuDelegate, NSTextFieldDelegate>
 @property (weak, nonatomic) IBOutlet CMMenu *menu;
+@property (nonatomic, weak) IBOutlet NSSearchField *searchField;
 
 
 @end

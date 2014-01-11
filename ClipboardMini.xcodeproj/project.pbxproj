@@ -21,6 +21,7 @@
 		AC62002018800805009771B3 /* NSURL+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = AC62001918800805009771B3 /* NSURL+Helpers.m */; };
 		AC62002118800805009771B3 /* CMClipboardChecker.m in Sources */ = {isa = PBXBuildFile; fileRef = AC62001B18800805009771B3 /* CMClipboardChecker.m */; };
 		AC62002218800805009771B3 /* CMClipboardItem.m in Sources */ = {isa = PBXBuildFile; fileRef = AC62001D18800805009771B3 /* CMClipboardItem.m */; };
+		AC62003018801E7C009771B3 /* RoundRectView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC62002F18801E7C009771B3 /* RoundRectView.m */; };
 		AC62FFC7188007BC009771B3 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC62FFC6188007BC009771B3 /* Cocoa.framework */; };
 		AC62FFD1188007BC009771B3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AC62FFCF188007BC009771B3 /* InfoPlist.strings */; };
 		AC62FFD3188007BD009771B3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AC62FFD2188007BD009771B3 /* main.m */; };
@@ -62,6 +63,8 @@
 		AC62001B18800805009771B3 /* CMClipboardChecker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMClipboardChecker.m; sourceTree = "<group>"; };
 		AC62001C18800805009771B3 /* CMClipboardItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMClipboardItem.h; sourceTree = "<group>"; };
 		AC62001D18800805009771B3 /* CMClipboardItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMClipboardItem.m; sourceTree = "<group>"; };
+		AC62002E18801E7C009771B3 /* RoundRectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoundRectView.h; sourceTree = "<group>"; };
+		AC62002F18801E7C009771B3 /* RoundRectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoundRectView.m; sourceTree = "<group>"; };
 		AC62FFC3188007BC009771B3 /* ClipboardMini.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClipboardMini.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC62FFC6188007BC009771B3 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		AC62FFC9188007BC009771B3 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -84,6 +87,7 @@
 		AC62FFFD188007D3009771B3 /* CMHighlightingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMHighlightingView.h; sourceTree = "<group>"; };
 		AC62FFFE188007D4009771B3 /* CMHighlightingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMHighlightingView.m; sourceTree = "<group>"; };
 		AC62FFFF188007D4009771B3 /* CMTextMenuItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMTextMenuItemCell.h; sourceTree = "<group>"; };
+		AC9F697C18802FA600EF7807 /* CMNotificationNames.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMNotificationNames.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,14 +125,9 @@
 			children = (
 				AC62FFFD188007D3009771B3 /* CMHighlightingView.h */,
 				AC62FFFE188007D4009771B3 /* CMHighlightingView.m */,
-				AC62FFFF188007D4009771B3 /* CMTextMenuItemCell.h */,
-				AC620000188007D4009771B3 /* CMTextMenuItemCell.m */,
-				AC620001188007D4009771B3 /* CMTextMenuItemCell.xib */,
-				AC620002188007D4009771B3 /* CMFileMenuItemCell.h */,
-				AC620003188007D4009771B3 /* CMFileMenuItemCell.m */,
-				AC620004188007D4009771B3 /* CMFileMenuItemCell.xib */,
-				AC620005188007D4009771B3 /* CMMenu.h */,
-				AC620006188007D4009771B3 /* CMMenu.m */,
+				AC62002E18801E7C009771B3 /* RoundRectView.h */,
+				AC62002F18801E7C009771B3 /* RoundRectView.m */,
+				AC9F697B18802BED00EF7807 /* Cliboard Menu */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -142,6 +141,7 @@
 				AC62001718800805009771B3 /* NSImage+Helpers.m */,
 				AC62001818800805009771B3 /* NSURL+Helpers.h */,
 				AC62001918800805009771B3 /* NSURL+Helpers.m */,
+				AC9F697C18802FA600EF7807 /* CMNotificationNames.h */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -240,6 +240,21 @@
 				AC62FFED188007BD009771B3 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		AC9F697B18802BED00EF7807 /* Cliboard Menu */ = {
+			isa = PBXGroup;
+			children = (
+				AC620005188007D4009771B3 /* CMMenu.h */,
+				AC620006188007D4009771B3 /* CMMenu.m */,
+				AC62FFFF188007D4009771B3 /* CMTextMenuItemCell.h */,
+				AC620000188007D4009771B3 /* CMTextMenuItemCell.m */,
+				AC620001188007D4009771B3 /* CMTextMenuItemCell.xib */,
+				AC620002188007D4009771B3 /* CMFileMenuItemCell.h */,
+				AC620003188007D4009771B3 /* CMFileMenuItemCell.m */,
+				AC620004188007D4009771B3 /* CMFileMenuItemCell.xib */,
+			);
+			name = "Cliboard Menu";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -352,6 +367,7 @@
 				AC62000B188007D4009771B3 /* CMHighlightingView.m in Sources */,
 				AC620010188007D4009771B3 /* CMMenu.m in Sources */,
 				AC620011188007D4009771B3 /* CMMenuController.m in Sources */,
+				AC62003018801E7C009771B3 /* RoundRectView.m in Sources */,
 				AC62FFD3188007BD009771B3 /* main.m in Sources */,
 				AC62001F18800805009771B3 /* NSImage+Helpers.m in Sources */,
 			);
@@ -556,6 +572,7 @@
 				AC62FFF6188007BD009771B3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		AC62FFF7188007BD009771B3 /* Build configuration list for PBXNativeTarget "ClipboardMiniTests" */ = {
 			isa = XCConfigurationList;
@@ -564,6 +581,7 @@
 				AC62FFF9188007BD009771B3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

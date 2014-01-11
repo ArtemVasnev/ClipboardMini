@@ -24,6 +24,11 @@
 #pragma mark -
 #pragma mark Mouse Events
 
+- (void)mouseUp:(NSEvent *)theEvent {
+    [super mouseUp:theEvent];
+    NSMenuItem *item = [self enclosingMenuItem];
+    [NSApp sendAction:[item action] to:[item target] from:item];
+}
 
 #pragma mark -
 #pragma mark Lifecycle

@@ -7,7 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-static NSString * const ClipboardChecherNewPasteboardItemNotification = @"ClipboardChecherNewPasteboardItem";
+
+APPKIT_EXTERN NSString *ClipboardChecherNewItemNotification;
 
 @interface CMClipboardChecker : NSObject
 

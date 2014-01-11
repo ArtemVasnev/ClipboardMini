@@ -1,5 +1,5 @@
 //
-//  AppDelegate.h
+//  RoundRectView.h
 //  ClipboardMini
 //
 //  Created by Artem on 10/01/14.
@@ -8,8 +8,6 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface AppDelegate : NSObject <NSApplicationDelegate>
-
-@property (assign) IBOutlet NSWindow *window;
-
+@interface RoundRectView : NSView
+- (id)initWithFrame:(NSRect)frameRect cornerRadius:(NSInteger)cRadius;
 @end

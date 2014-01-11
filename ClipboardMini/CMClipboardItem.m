@@ -7,6 +7,7 @@
 //
 
 #import "CMClipboardItem.h"
+#import "NSURL+Helpers.h"
 
 @implementation CMClipboardItem
 
@@ -28,8 +29,10 @@
 @implementation CMClipboardFileItem
 
 - (id)initWithFileUrl:(NSURL *)fileUrl {
-    if (self = [super init])
+    if (self = [super init]) {
         _fileUrl = fileUrl;
+        _fileName = [fileUrl fileName];
+    }
     return self;
 }
 

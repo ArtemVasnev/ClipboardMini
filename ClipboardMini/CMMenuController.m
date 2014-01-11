@@ -8,16 +8,20 @@
 
 #import "CMMenuController.h"
 #import "CMClipboardChecker.h"
+
 #import "CMFileMenuItemCell.h"
 #import "CMTextMenuItemCell.h"
 #import "CMClipboardItem.h"
 
+
 #import "NSMutableArray+Helpers.h"
 #import "NSURL+Helpers.h"
 
-#define kMenuItemCellTag 1000
+
 #define kFileMenuItemCellNibName @"CMFileMenuItemCell"
 #define kTextMenuItemCellNibName @"CMTextMenuItemCell"
+
+
 
 @interface CMMenuController ()  {
     
@@ -25,7 +29,10 @@
     NSMutableArray *_textClipboardItems;
     NSMutableArray *_fileClipboardItems;
     
+    NSArray *_suggestions;
 }
+@property (nonatomic, assign) BOOL isSuggestionMode;
+
 - (void)newPastrboardItem:(NSNotification *)notification;
 
 
@@ -37,12 +44,17 @@
 - (BOOL)isRepeatedFile:(NSURL *)fileUrl;
 - (BOOL)isRepeatedClipboardText:(NSString *)cText;
 
+
+- (void)updateTextEditor:(NSText *)tEditor withText:(NSString *)text;
+- (NSArray *)suggestionsForText:(NSString *)text;
+
 @end
+
 
 @implementation CMMenuController
 
 #pragma mark -
-#pragma mark Private
+#pragma mark Creation and Handling Menu Items
 - (NSMenuItem *)menuItemWithClipboardFileItem:(CMClipboardFileItem *)fileItem {
     
     NSViewController *vc = [[NSViewController alloc] initWithNibName:kFileMenuItemCellNibName bundle:nil];
@@ -174,8 +186,10 @@
 #pragma mark NSMenu Delegate
 
 - (void)menuWillOpen:(NSMenu *)menu {
-    [[CMClipboardChecker sharedClipboardChecker] stopChecker];
+    [_searchField.window makeFirstResponder:_searchField];
+    self.isSuggestionMode = NO;
     [self.menu reload];
+    [[CMClipboardChecker sharedClipboardChecker] stopChecker];
 }
 
 - (void)menuDidClose:(NSMenu *)menu {
@@ -187,13 +201,14 @@
 #pragma mark CMMenu Data source
 
 - (NSInteger)numberOfItemsInMenu:(NSMenu *)menu {
-    return [_allClipboardItems count];
+    NSInteger itemCount = (_isSuggestionMode) ? [_suggestions count] : [_allClipboardItems count];
+    return itemCount;
 }
 
 - (NSMenuItem *)menu:(CMMenu *)menu menuItemForRow:(NSUInteger)row {
     NSMenuItem *menuItem = nil;
     
-    CMClipboardItem *clipboardItem = [_allClipboardItems objectAtIndex:row];
+    CMClipboardItem *clipboardItem = (_isSuggestionMode) ? [_suggestions objectAtIndex:row] : [_allClipboardItems objectAtIndex:row];
     
     if ([clipboardItem isFileItem])
         menuItem = [self menuItemWithClipboardFileItem:(CMClipboardFileItem *)clipboardItem];
@@ -201,6 +216,63 @@
         menuItem = [self menuItemWithClipboardTextItem:(CMClipboardTextItem *)clipboardItem];
     
     return menuItem;
+}
+
+#pragma mark -
+#pragma mark Suggestions
+
+- (void)setIsSuggestionMode:(BOOL)isSuggestionMode {
+    if (_isSuggestionMode == isSuggestionMode)
+        return;
+    
+    _isSuggestionMode = isSuggestionMode;
+
+}
+
+- (void)updateTextEditor:(NSText *)tEditor withText:(NSString *)text {
+    
+}
+
+// Looking item for presice file name,
+// Same for text by this time
+// Should change to search by words at future
+- (NSArray *)suggestionsForText:(NSString *)text {
+    NSMutableArray *suggestions = [@[] mutableCopy];
+    
+    NSRange matchRange;
+    NSString *textToMatch;
+    for (CMClipboardItem *cItem in _allClipboardItems) {
+        textToMatch = (cItem.isFileItem) ? [(CMClipboardFileItem *)cItem fileName] : [(CMClipboardTextItem *)cItem clipboardText];
+        matchRange = [textToMatch rangeOfString:text options:NSCaseInsensitiveSearch];
+        
+        if (matchRange.location == 0)
+            [suggestions addObject:cItem];
+    }
+    
+    return [NSArray arrayWithArray:suggestions];
+}
+
+#pragma mark -
+#pragma mark NSTextField Delegate
+
+- (void)controlTextDidBeginEditing:(NSNotification *)obj {
+    self.isSuggestionMode = YES;
+    [self.menu clear];
+}
+
+- (void)controlTextDidChange:(NSNotification *)obj {
+    NSText *textEditor = [_searchField currentEditor];
+    
+    if ([textEditor.string isEqualToString:@""])
+        _suggestions = _allClipboardItems;
+    else
+        _suggestions = [self suggestionsForText:textEditor.string];
+    
+    [self.menu reload];
+}
+
+- (void)controlTextDidEndEditing:(NSNotification *)obj {
+    self.isSuggestionMode = NO;
 }
 
 
@@ -213,7 +285,7 @@
         
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(newPastrboardItem:)
-                                                     name:ClipboardChecherNewPasteboardItemNotification
+                                                     name:ClipboardChecherNewItemNotification
                                                    object:nil];
         
         [[CMClipboardChecker sharedClipboardChecker] seedChecker];

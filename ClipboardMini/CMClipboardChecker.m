@@ -8,26 +8,28 @@
 
 #import "CMClipboardChecker.h"
 
+NSString *ClipboardChecherNewItemNotification = @"ClipboardChecherNewItemNotification";
+
 static CMClipboardChecker *_clipboardChecker;
 
 @interface CMClipboardChecker () {
     NSTimer *_timer;
     NSArray *_pboardTypes;
-    NSUInteger previousPboardCount;
+    NSUInteger previousPboardChangeCount;
 }
 - (void)checkPasteboard:(NSTimer *)timer;
 @end
 
 @implementation CMClipboardChecker
 
-#pragma mark - Private
+
+#pragma mark -
+#pragma mark Timer Handling
 
 - (void)checkPasteboard:(NSTimer *)timer {
     NSPasteboard *pBoard = [NSPasteboard generalPasteboard];
-    if (previousPboardCount == [pBoard changeCount]) {
+    if (previousPboardChangeCount == [pBoard changeCount])
         return;
-    }
-    
     
     for (NSPasteboardItem *item in [pBoard pasteboardItems]) {
         
@@ -37,23 +39,20 @@ static CMClipboardChecker *_clipboardChecker;
         
         NSString *pasteboardString = [item stringForType:availableType];
         
-        [[NSNotificationCenter defaultCenter] postNotificationName:ClipboardChecherNewPasteboardItemNotification
+        [[NSNotificationCenter defaultCenter] postNotificationName:ClipboardChecherNewItemNotification
                                                             object:nil
                                                           userInfo:@{availableType: pasteboardString}];
     }
     
-    previousPboardCount = [pBoard changeCount];
+    previousPboardChangeCount = [pBoard changeCount];
 }
 
 #pragma mark -
 #pragma mark Public
+
 - (void)seedChecker {
-    _timer = [NSTimer timerWithTimeInterval:2.0 target:self selector:@selector(checkPasteboard:)
-                                   userInfo:nil repeats:YES];
+    _timer = [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(checkPasteboard:) userInfo:nil repeats:YES];
     [_timer fire];
-    
-    //    NSString *mode = isTracking ? NSEventTrackingRunLoopMode : NSRunLoopCommonModes;
-    [[NSRunLoop mainRunLoop] addTimer:_timer forMode:NSRunLoopCommonModes];
 }
 
 - (void)stopChecker {
@@ -65,10 +64,8 @@ static CMClipboardChecker *_clipboardChecker;
 #pragma mark Lifecycle
 
 - (id)init {
-    self = [super init];
-    if (self) {
+    if (self = [super init])
         _pboardTypes = @[(__bridge NSString *)kUTTypeFileURL, (__bridge NSString *)kUTTypeText];
-    }
     return self;
 }
 
