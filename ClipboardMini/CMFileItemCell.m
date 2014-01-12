@@ -17,27 +17,31 @@
 #pragma mark -
 #pragma mark Public
 
+- (void)setThumbnail:(NSImage *)thumb {
 
-- (void)setFileUrl:(NSURL *)fileUrl {
+}
+
+- (void)setFileUrl:(NSURL *)fileUrl icon:(NSImage *)icon {
     [titleLabel setStringValue:[fileUrl fileName]];
     [filePathLabel setStringValue:[[fileUrl path] stringByDeletingLastPathComponent]];
-    iconView.image = nil;
+    iconView.image = icon;
     
-    
-    [IHQueue() addOperationWithBlock:^{
-        NSImage *icon = [NSImage getIconForFileAtUrl:fileUrl];
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-            iconView.image = icon;
-            [spinner stopAnimation:nil];
-            [spinner setHidden:YES];
+    if (!iconView.image) {
+        [IHQueue() addOperationWithBlock:^{
+            NSImage *icon = [NSImage getIconForFileAtUrl:fileUrl];
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                iconView.image = icon;
+                [spinner stopAnimation:nil];
+                [spinner setHidden:YES];
+            }];
         }];
-    }];
-    
-    [spinner setHidden:NO];
-    [spinner performSelector:@selector(startAnimation:)
-                  withObject:self
-                  afterDelay:0.0
-                     inModes:@[NSEventTrackingRunLoopMode]];
+        
+        [spinner setHidden:NO];
+        [spinner performSelector:@selector(startAnimation:)
+                      withObject:self
+                      afterDelay:0.0
+                         inModes:@[NSEventTrackingRunLoopMode]];
+    }
 }
 
 

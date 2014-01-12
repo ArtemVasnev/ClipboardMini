@@ -15,7 +15,6 @@
     __weak IBOutlet NSProgressIndicator *spinner;
 }
 
-
-- (void)setFileUrl:(NSURL *)fileUrl;
+- (void)setFileUrl:(NSURL *)fileUrl icon:(NSImage *)icon;
 
 @end

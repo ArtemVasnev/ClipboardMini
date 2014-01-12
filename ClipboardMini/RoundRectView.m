@@ -21,8 +21,13 @@
     self = [super initWithFrame:frameRect];
     if (self)
         _cornerRadius = cRadius;
+    self.translatesAutoresizingMaskIntoConstraints = NO;
+    
     return self;
 }
+
+
+
 
 - (void)drawRect:(NSRect)dirtyRect
 {

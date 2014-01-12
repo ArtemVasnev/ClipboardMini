@@ -19,6 +19,7 @@
 #pragma mark - File Item
 @interface CMClipboardFileItem : CMClipboardItem
 @property (nonatomic, readonly) NSURL *fileUrl;
+@property (nonatomic, readonly) NSImage *icon;
 @property (nonatomic, readonly) NSString *fileName;
 
 - (id)initWithFileUrl:(NSURL *)fileUrl;

@@ -8,6 +8,7 @@
 
 #import "CMClipboardItem.h"
 #import "NSURL+Helpers.h"
+#import "NSImage+Helpers.h"
 
 @implementation CMClipboardItem
 
@@ -33,8 +34,14 @@
 }
 
 - (id)initWithFileUrl:(NSURL *)fileUrl {
-    if (self = [super init])
+    if (self = [super init]) {
         _fileUrl = fileUrl;
+//        __block NSImage *thumb = _icon;
+        [IHQueue() addOperationWithBlock:^{
+            _icon = [NSImage getIconForFileAtUrl:fileUrl];
+        }];
+        
+    }
     return self;
 }
 

@@ -27,24 +27,29 @@ static CMChecker *_clipboardChecker;
 #pragma mark Timer Handling
 
 - (void)checkPasteboard:(NSTimer *)timer {
-    NSPasteboard *pBoard = [NSPasteboard generalPasteboard];
-    if (previousPboardChangeCount == [pBoard changeCount])
-        return;
     
-    for (NSPasteboardItem *item in [pBoard pasteboardItems]) {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
         
-        NSString *availableType = [item availableTypeFromArray:_pboardTypes];
-        if (!availableType)
-            continue;
         
-        NSString *pasteboardString = [item stringForType:availableType];
+        NSPasteboard *pBoard = [NSPasteboard generalPasteboard];
+        if (previousPboardChangeCount == [pBoard changeCount])
+            return;
         
-        [[NSNotificationCenter defaultCenter] postNotificationName:ClipboardChecherNewItemNotification
-                                                            object:nil
-                                                          userInfo:@{availableType: pasteboardString}];
-    }
-    
-    previousPboardChangeCount = [pBoard changeCount];
+        for (NSPasteboardItem *item in [pBoard pasteboardItems]) {
+            
+            NSString *availableType = [item availableTypeFromArray:_pboardTypes];
+            if (!availableType)
+                continue;
+            
+            NSString *pasteboardString = [item stringForType:availableType];
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:ClipboardChecherNewItemNotification
+                                                                object:nil
+                                                              userInfo:@{availableType: pasteboardString}];
+        }
+        
+        previousPboardChangeCount = [pBoard changeCount];
+    });
 }
 
 #pragma mark -

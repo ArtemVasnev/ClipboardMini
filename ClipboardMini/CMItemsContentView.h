@@ -11,7 +11,10 @@
 @protocol CMItemsContentViewDelegate;
 @protocol CMItemsContentViewDataSource;
 
-@interface CMItemsContentView : NSView
+@interface CMItemsContentView : NSView {
+    __weak IBOutlet NSScrollView *contentScrollView;
+    NSLayoutConstraint *_heightConstraint;
+}
 
 @property (nonatomic, weak) IBOutlet id <CMItemsContentViewDelegate> delegate;
 @property (nonatomic, weak) IBOutlet id <CMItemsContentViewDataSource> dataSource;

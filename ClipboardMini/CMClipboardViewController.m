@@ -64,7 +64,7 @@
     NSViewController *vc = [[NSViewController alloc] initWithNibName:kFileItemCellNibName bundle:nil];
     
     CMFileItemCell *cell = (CMFileItemCell *)vc.view;
-    [cell setFileUrl:fileItem.fileUrl];
+    [cell setFileUrl:fileItem.fileUrl icon:fileItem.icon];
     
     return cell;
 }
@@ -172,7 +172,9 @@
 #pragma mark ItemsContent View Delegate
 
 - (void)didChangeContentSize:(CGSize)newSize {
-    _popover.contentSize = CGSizeMake(emptyPopoverSize.width, emptyPopoverSize.height + newSize.height);
+    NSSize targetSize = CGSizeMake(emptyPopoverSize.width, emptyPopoverSize.height + newSize.height);
+    _popover.contentSize = targetSize;
+    [self.view layoutSubtreeIfNeeded];
 }
 
 
@@ -237,12 +239,6 @@
     return [NSArray arrayWithArray:suggestions];
 }
 
-- (void)setIsSuggestionMode:(BOOL)isSuggestionMode {
-    _isSuggestionMode = isSuggestionMode;
-    if (!isSuggestionMode) {
-        [contentView reload];
-    }
-}
 
 #pragma mark -
 #pragma mark NSTextField Delegate
@@ -255,8 +251,16 @@
     
     if (_isSuggestionMode) {
         _suggestions = [self suggestionsForText:textEditor.string];
-        ([_suggestions count] > 0) ? [contentView reload] : [contentView clear];
+        if (_suggestions.count == 0) {
+            [contentView clear];
+            return;
+        } else {
+            //            [contentView reload];
+        }
+        //        return;
     }
+//    [contentView clear];
+    [contentView reload];
 }
 
 
@@ -273,7 +277,8 @@
     [NSApp activateIgnoringOtherApps:YES];
     [searchField becomeFirstResponder];
     searchField.stringValue = @"";
-    self.isSuggestionMode = NO;
+    
+    _isSuggestionMode = NO;
     [contentView reload];
 }
 
@@ -285,6 +290,8 @@
 #pragma mark -
 #pragma mark Lifecycle
 
+
+
 - (void)awakeFromNib {
     _popover = [[NSPopover alloc] init];
     _popover.delegate = self;
@@ -294,7 +301,6 @@
 
 - (id)init {
     if (self = [super init]) {
-        
         
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(newPastrboardItem:)
