@@ -6,40 +6,44 @@
 //  Copyright (c) 2014 Artem. All rights reserved.
 //
 
-#import "CMMenuController.h"
-#import "CMClipboardChecker.h"
+#import "CMClipboardViewController.h"
+#import "CMChecker.h"
 
-#import "CMFileMenuItemCell.h"
-#import "CMTextMenuItemCell.h"
+#import "CMFileItemCell.h"
+#import "CMTextItemCell.h"
 #import "CMClipboardItem.h"
-
+#import "CMItemsContentView.h"
 
 #import "NSMutableArray+Helpers.h"
 #import "NSURL+Helpers.h"
 
 
-#define kFileMenuItemCellNibName @"CMFileMenuItemCell"
-#define kTextMenuItemCellNibName @"CMTextMenuItemCell"
+#define kFileItemCellNibName @"CMFileItemCell"
+#define kTextItemCellNibName @"CMTextItemCell"
 
 
 
-@interface CMMenuController ()  {
+@interface CMClipboardViewController () <CMItemsContentViewDelegate, CMItemsContentViewDataSource> {
     
     NSMutableArray *_allClipboardItems;
     NSMutableArray *_textClipboardItems;
     NSMutableArray *_fileClipboardItems;
     
     NSArray *_suggestions;
+    
+    CGSize emptyPopoverSize;
+    
 }
 @property (nonatomic, assign) BOOL isSuggestionMode;
 
 - (void)newPastrboardItem:(NSNotification *)notification;
 
 
-- (NSMenuItem *)menuItemWithClipboardFileItem:(CMClipboardFileItem *)fileItem;
-- (void)didSelectFileMenuItem:(id)sender;
-- (NSMenuItem *)menuItemWithClipboardTextItem:(CMClipboardTextItem *)textItem;
-- (void)didSelectTextMenuItem:(id)sender;
+- (NSView *)itemCellForClipboardFileItem:(CMClipboardFileItem *)fileItem;
+- (NSView *)itemCellForClipboardTextItem:(CMClipboardTextItem *)textItem;
+
+- (void)selectFileItem:(CMClipboardFileItem *)fileItem;
+- (void)selectTextItem:(CMClipboardTextItem *)textItem;
 
 - (BOOL)isRepeatedFile:(NSURL *)fileUrl;
 - (BOOL)isRepeatedClipboardText:(NSString *)cText;
@@ -51,64 +55,45 @@
 @end
 
 
-@implementation CMMenuController
+@implementation CMClipboardViewController
 
 #pragma mark -
 #pragma mark Creation and Handling Menu Items
-- (NSMenuItem *)menuItemWithClipboardFileItem:(CMClipboardFileItem *)fileItem {
+- (NSView *)itemCellForClipboardFileItem:(CMClipboardFileItem *)fileItem {
     
-    NSViewController *vc = [[NSViewController alloc] initWithNibName:kFileMenuItemCellNibName bundle:nil];
-    NSMenuItem *menuItem = [[NSMenuItem alloc] init];
-    menuItem.view = vc.view;
-    menuItem.representedObject = fileItem;
+    NSViewController *vc = [[NSViewController alloc] initWithNibName:kFileItemCellNibName bundle:nil];
     
-    [menuItem setTarget:self];
-    [menuItem setAction:@selector(didSelectFileMenuItem:)];
-    
-    CMFileMenuItemCell *cell = (CMFileMenuItemCell *)vc.view;
+    CMFileItemCell *cell = (CMFileItemCell *)vc.view;
     [cell setFileUrl:fileItem.fileUrl];
     
-    return menuItem;
+    return cell;
 }
 
-- (NSMenuItem *)menuItemWithClipboardTextItem:(CMClipboardTextItem *)textItem {
-    NSViewController *vc = [[NSViewController alloc] initWithNibName:kTextMenuItemCellNibName bundle:nil];
-    NSMenuItem *menuItem = [[NSMenuItem alloc] init];
-    menuItem.view = vc.view;
-    menuItem.representedObject = textItem;
+- (NSView *)itemCellForClipboardTextItem:(CMClipboardTextItem *)textItem {
+    NSViewController *vc = [[NSViewController alloc] initWithNibName:kTextItemCellNibName bundle:nil];
     
-    [menuItem setTarget:self];
-    [menuItem setAction:@selector(didSelectTextMenuItem:)];
+    CMTextItemCell *cell = (CMTextItemCell *)vc.view;
+    [cell setClipboardText:textItem.trimmedClipboardText];
     
-    CMTextMenuItemCell *cell = (CMTextMenuItemCell *)vc.view;
-    [cell setClipboardText:textItem.clipboardText];
-    
-    return menuItem;
+    return cell;
 }
 
-- (void)didSelectFileMenuItem:(id)sender {
-    [_menu cancelTracking];
-    NSMenuItem *menuItem = (NSMenuItem *)sender;
-    CMClipboardFileItem *fileItem = [menuItem representedObject];
+- (void)selectFileItem:(CMClipboardFileItem *)fileItem {
     [[NSWorkspace sharedWorkspace] openURL:fileItem.fileUrl];
     [_allClipboardItems moveObjectToBegining:fileItem];
-    
 }
 
-- (void)didSelectTextMenuItem:(id)sender {
-    [[CMClipboardChecker sharedClipboardChecker] stopChecker];
+- (void)selectTextItem:(CMClipboardTextItem *)textItem {
+    [[CMChecker sharedClipboardChecker] stopChecker];
     
-    [_menu cancelTracking];
-    
-    NSMenuItem *menuItem = (NSMenuItem *)sender;
-    CMClipboardTextItem *textItem = [menuItem representedObject];
     NSPasteboard *pBoard = [NSPasteboard generalPasteboard];
     [pBoard clearContents];
     [pBoard writeObjects:@[textItem.clipboardText]];
     [_allClipboardItems moveObjectToBegining:textItem];
     
-    [[CMClipboardChecker sharedClipboardChecker] seedChecker];
+    [[CMChecker sharedClipboardChecker] seedChecker];
 }
+
 
 - (BOOL)isRepeatedFile:(NSURL *)fileUrl {
     __block BOOL isRepeated = NO;
@@ -182,52 +167,52 @@
     
 }
 
-#pragma mark -
-#pragma mark NSMenu Delegate
-
-- (void)menuWillOpen:(NSMenu *)menu {
-    [_searchField.window makeFirstResponder:_searchField];
-    self.isSuggestionMode = NO;
-    [self.menu reload];
-    [[CMClipboardChecker sharedClipboardChecker] stopChecker];
-}
-
-- (void)menuDidClose:(NSMenu *)menu {
-    [self.menu clear];
-    [[CMClipboardChecker sharedClipboardChecker] seedChecker];
-}
 
 #pragma mark -
-#pragma mark CMMenu Data source
+#pragma mark ItemsContent View Delegate
 
-- (NSInteger)numberOfItemsInMenu:(NSMenu *)menu {
-    NSInteger itemCount = (_isSuggestionMode) ? [_suggestions count] : [_allClipboardItems count];
-    return itemCount;
+- (void)didChangeContentSize:(CGSize)newSize {
+    _popover.contentSize = CGSizeMake(emptyPopoverSize.width, emptyPopoverSize.height + newSize.height);
 }
 
-- (NSMenuItem *)menu:(CMMenu *)menu menuItemForRow:(NSUInteger)row {
-    NSMenuItem *menuItem = nil;
+
+- (void)didSelectItemAtRow:(NSInteger)row {
+    [_popover close];
+    CMClipboardItem *item;
+    item = (_isSuggestionMode) ? _suggestions[row] : _allClipboardItems[row];
     
-    CMClipboardItem *clipboardItem = (_isSuggestionMode) ? [_suggestions objectAtIndex:row] : [_allClipboardItems objectAtIndex:row];
-    
-    if ([clipboardItem isFileItem])
-        menuItem = [self menuItemWithClipboardFileItem:(CMClipboardFileItem *)clipboardItem];
+    if (item.isFileItem)
+        [self selectFileItem:(CMClipboardFileItem *)item];
     else
-        menuItem = [self menuItemWithClipboardTextItem:(CMClipboardTextItem *)clipboardItem];
-    
-    return menuItem;
+        [self selectTextItem:(CMClipboardTextItem *)item];
 }
+
+
+#pragma mark -
+#pragma mark ItemsContent View Data Source
+
+- (NSInteger)numberOfItemsInContentView:(CMItemsContentView *)cView {
+    NSInteger numberOfItems = (_isSuggestionMode) ? _suggestions.count : _allClipboardItems.count;
+    return numberOfItems;
+}
+
+- (NSView *)contentView:(CMItemsContentView *)cView itemCellForRow:(NSInteger)row {
+    CMClipboardItem *item;
+    item = (_isSuggestionMode) ? _suggestions[row] : _allClipboardItems[row];
+    
+    NSView *itemCell = nil;
+    if (item.isFileItem)
+        itemCell = [self itemCellForClipboardFileItem:(CMClipboardFileItem *)item];
+    else
+        itemCell = [self itemCellForClipboardTextItem:(CMClipboardTextItem *)item];
+    return itemCell;
+}
+
+
 
 #pragma mark -
 #pragma mark Suggestions
 
-- (void)setIsSuggestionMode:(BOOL)isSuggestionMode {
-    if (_isSuggestionMode == isSuggestionMode)
-        return;
-    
-    _isSuggestionMode = isSuggestionMode;
-
-}
 
 - (void)updateTextEditor:(NSText *)tEditor withText:(NSString *)text {
     
@@ -242,7 +227,7 @@
     NSRange matchRange;
     NSString *textToMatch;
     for (CMClipboardItem *cItem in _allClipboardItems) {
-        textToMatch = (cItem.isFileItem) ? [(CMClipboardFileItem *)cItem fileName] : [(CMClipboardTextItem *)cItem clipboardText];
+        textToMatch = (cItem.isFileItem) ? [(CMClipboardFileItem *)cItem fileName] : [(CMClipboardTextItem *)cItem trimmedClipboardText];
         matchRange = [textToMatch rangeOfString:text options:NSCaseInsensitiveSearch];
         
         if (matchRange.location == 0)
@@ -252,32 +237,60 @@
     return [NSArray arrayWithArray:suggestions];
 }
 
+- (void)setIsSuggestionMode:(BOOL)isSuggestionMode {
+    _isSuggestionMode = isSuggestionMode;
+    if (!isSuggestionMode) {
+        [contentView reload];
+    }
+}
+
 #pragma mark -
 #pragma mark NSTextField Delegate
 
-- (void)controlTextDidBeginEditing:(NSNotification *)obj {
-    self.isSuggestionMode = YES;
-    [self.menu clear];
-}
 
 - (void)controlTextDidChange:(NSNotification *)obj {
-    NSText *textEditor = [_searchField currentEditor];
+    NSText *textEditor = [searchField currentEditor];
     
-    if ([textEditor.string isEqualToString:@""])
-        _suggestions = _allClipboardItems;
-    else
+    self.isSuggestionMode = ([textEditor.string isEqualToString:@""]) ? NO : YES;
+    
+    if (_isSuggestionMode) {
         _suggestions = [self suggestionsForText:textEditor.string];
-    
-    [self.menu reload];
+        ([_suggestions count] > 0) ? [contentView reload] : [contentView clear];
+    }
 }
 
-- (void)controlTextDidEndEditing:(NSNotification *)obj {
+
+#pragma mark -
+#pragma mark NSPopover Delegate
+
+- (void)popoverWillShow:(NSNotification *)notification {
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        emptyPopoverSize = _popover.contentSize;
+    });
+    
+    [NSApp activateIgnoringOtherApps:YES];
+    [searchField becomeFirstResponder];
+    searchField.stringValue = @"";
     self.isSuggestionMode = NO;
+    [contentView reload];
+}
+
+- (void)popoverDidClose:(NSNotification *)notification {
+    [contentView clear];
 }
 
 
 #pragma mark -
 #pragma mark Lifecycle
+
+- (void)awakeFromNib {
+    _popover = [[NSPopover alloc] init];
+    _popover.delegate = self;
+    _popover.contentViewController = self;
+    _popover.behavior = NSPopoverBehaviorApplicationDefined;
+}
 
 - (id)init {
     if (self = [super init]) {
@@ -287,8 +300,6 @@
                                                  selector:@selector(newPastrboardItem:)
                                                      name:ClipboardChecherNewItemNotification
                                                    object:nil];
-        
-        [[CMClipboardChecker sharedClipboardChecker] seedChecker];
     }
     return self;
 }

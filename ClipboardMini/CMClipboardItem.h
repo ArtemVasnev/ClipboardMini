@@ -28,6 +28,7 @@
 #pragma mark - Text Item
 @interface CMClipboardTextItem : CMClipboardItem
 @property (nonatomic, readonly) NSString *clipboardText;
+@property (nonatomic, readonly) NSString *trimmedClipboardText;
 
 - (id)initWithClipboardText:(NSString *)cText;
 + (instancetype)clipboardTextItem:(NSString *)cText;

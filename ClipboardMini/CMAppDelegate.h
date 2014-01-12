@@ -7,12 +7,12 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "NSWindow+canBecomeKeyWindow.h"
+#import "CMClipboardViewController.h"
 
-@class CMMenuController;
 @interface CMAppDelegate : NSObject <NSApplicationDelegate> {
     NSStatusItem *_appStatusItem;
 }
 @property (assign) IBOutlet NSWindow *window;
-@property (nonatomic, weak) IBOutlet CMMenuController *menuController;
-
+@property (nonatomic, weak) IBOutlet CMClipboardViewController *cbViewController;
 @end

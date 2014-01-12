@@ -14,6 +14,8 @@
 
 @implementation RoundRectView
 
+#pragma mark -
+#pragma mark Lifecycle
 
 - (id)initWithFrame:(NSRect)frameRect cornerRadius:(NSInteger)cRadius {
     self = [super initWithFrame:frameRect];

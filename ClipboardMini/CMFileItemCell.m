@@ -6,14 +6,12 @@
 //  Copyright (c) 2014 Artem. All rights reserved.
 //
 
-#import "CMFileMenuItemCell.h"
+#import "CMFileItemCell.h"
 #import "NSImage+Helpers.h"
 #import "NSURL+Helpers.h"
 
-@implementation CMFileMenuItemCell
+@implementation CMFileItemCell
 
-#pragma mark -
-#pragma mark Property
 
 
 #pragma mark -
@@ -39,24 +37,11 @@
     [spinner performSelector:@selector(startAnimation:)
                   withObject:self
                   afterDelay:0.0
-                     inModes:[NSArray
-                              arrayWithObject:NSEventTrackingRunLoopMode]];
-}
-
-#pragma mark -
-#pragma mark Mouse Events
-
-- (void)mouseUp:(NSEvent *)theEvent {
-    [super mouseUp:theEvent];
-    NSMenuItem *item = [self enclosingMenuItem];
-    [NSApp sendAction:[item action] to:[item target] from:item];
+                     inModes:@[NSEventTrackingRunLoopMode]];
 }
 
 
 #pragma mark -
 #pragma mark Lifecycle
-
-
-
 
 @end

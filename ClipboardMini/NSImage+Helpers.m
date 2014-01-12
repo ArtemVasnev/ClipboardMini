@@ -8,7 +8,7 @@
 
 #import "NSImage+Helpers.h"
 
-#define THUMB_SIDE 35
+#define THUMB_SIDE 50
 
 @implementation NSImage (Helpers)
 

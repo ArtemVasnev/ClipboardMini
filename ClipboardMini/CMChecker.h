@@ -10,7 +10,7 @@
 
 APPKIT_EXTERN NSString *ClipboardChecherNewItemNotification;
 
-@interface CMClipboardChecker : NSObject
+@interface CMChecker : NSObject
 
 - (void)seedChecker;
 - (void)stopChecker;

@@ -8,14 +8,13 @@
 
 #import "CMHighlightingView.h"
 
-@interface CMFileMenuItemCell : CMHighlightingView {
+@interface CMFileItemCell : CMHighlightingView {
     __weak IBOutlet NSTextField *titleLabel;
     __weak IBOutlet NSTextField *filePathLabel;
     __weak IBOutlet NSImageView *iconView;
     __weak IBOutlet NSProgressIndicator *spinner;
 }
 
-@property (weak, nonatomic) id delegate;
 
 - (void)setFileUrl:(NSURL *)fileUrl;
 

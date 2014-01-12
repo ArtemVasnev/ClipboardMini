@@ -15,6 +15,8 @@
     [self setNeedsDisplay:YES];
 }
 
+#pragma mark - 
+#pragma mark Mouse Events
 - (void)mouseEntered:(NSEvent *)theEvent {
     self.isHighlighted = YES;
 }
@@ -23,23 +25,9 @@
     self.isHighlighted = NO;
 }
 
-- (void)mouseUp:(NSEvent *)theEvent {
-    self.isHighlighted = NO;
-}
-
 - (void)updateTrackingAreas {
-    static NSTrackingArea *trackingArea;
-    if (trackingArea) {
-        [self removeTrackingArea:trackingArea];
-        trackingArea = nil;
-    }
-    
-    NSTrackingAreaOptions trackingOptions = NSTrackingMouseEnteredAndExited | NSTrackingActiveInActiveApp | NSTrackingEnabledDuringMouseDrag;
-    trackingArea = [[NSTrackingArea alloc] initWithRect:self.bounds
-                                                 options:trackingOptions
-                                                   owner:self
-                                                userInfo:nil];
-    [self addTrackingArea:trackingArea];
+    if ([self.trackingAreas count] == 0)
+        [self addTrackingRect:self.bounds owner:self userData:nil assumeInside:NO];
 }
 
 

@@ -13,7 +13,7 @@
         <customObject id="-3" userLabel="Application"/>
         <customObject id="Voe-Tx-rLC" customClass="CMAppDelegate">
             <connections>
-                <outlet property="menuController" destination="EAg-cd-e2v" id="iU8-oL-0Hb"/>
+                <outlet property="cbViewController" destination="LuB-Uh-CCL" id="NRw-XS-zEa"/>
             </connections>
         </customObject>
         <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
@@ -84,52 +84,50 @@
                 </menuItem>
             </items>
         </menu>
-        <menu showsStateColumn="NO" autoenablesItems="NO" id="YhB-xx-QGO" customClass="CMMenu">
-            <items>
-                <menuItem title="Search field" tag="1000" id="QXc-74-CIx">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                    <connections>
-                        <outlet property="view" destination="1hF-qE-h30" id="hcN-yx-pIo"/>
-                    </connections>
-                </menuItem>
-            </items>
-            <connections>
-                <outlet property="dataSource" destination="EAg-cd-e2v" id="33S-WQ-ur2"/>
-                <outlet property="delegate" destination="EAg-cd-e2v" id="0YZ-cK-jun"/>
-            </connections>
-        </menu>
-        <customObject id="EAg-cd-e2v" userLabel="Menu Controller" customClass="CMMenuController">
-            <connections>
-                <outlet property="menu" destination="YhB-xx-QGO" id="SMN-rp-g6i"/>
-                <outlet property="searchField" destination="GCJ-pu-X7e" id="hlc-b5-TU7"/>
-            </connections>
-        </customObject>
-        <customView id="1hF-qE-h30" userLabel="Search Cell">
-            <rect key="frame" x="0.0" y="0.0" width="550" height="26"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+        <view id="7jo-4M-EAp">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+            <autoresizingMask key="autoresizingMask"/>
             <subviews>
-                <searchField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="GCJ-pu-X7e">
-                    <rect key="frame" x="20" y="2" width="510" height="22"/>
+                <searchField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ZUV-NV-AXj">
+                    <rect key="frame" x="20" y="14" width="280" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" focusRingType="none" placeholderString="Search clipboard" usesSingleLineMode="YES" bezelStyle="round" id="9wz-Ni-j8j">
+                    <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" placeholderString="Search" usesSingleLineMode="YES" bezelStyle="round" id="6X5-w0-VWE">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </searchFieldCell>
                     <connections>
-                        <outlet property="delegate" destination="EAg-cd-e2v" id="H73-Sa-IVB"/>
+                        <outlet property="delegate" destination="LuB-Uh-CCL" id="FQh-d9-ka1"/>
                     </connections>
                 </searchField>
+                <customView autoresizesSubviews="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qpK-Kq-D8J" userLabel="Clipboard Items View" customClass="CMItemsContentView">
+                    <rect key="frame" x="0.0" y="7" width="320" height="0.0"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <connections>
+                        <outlet property="dataSource" destination="LuB-Uh-CCL" id="NGf-fv-f6P"/>
+                        <outlet property="delegate" destination="LuB-Uh-CCL" id="6jH-Dg-8G9"/>
+                    </connections>
+                </customView>
             </subviews>
             <constraints>
-                <constraint firstItem="GCJ-pu-X7e" firstAttribute="leading" secondItem="1hF-qE-h30" secondAttribute="leading" constant="20" id="EHe-X0-GY8"/>
-                <constraint firstAttribute="trailing" secondItem="GCJ-pu-X7e" secondAttribute="trailing" constant="20" id="RtZ-Ke-ZkJ"/>
-                <constraint firstItem="GCJ-pu-X7e" firstAttribute="top" secondItem="1hF-qE-h30" secondAttribute="top" constant="2" id="fHq-H1-gIv"/>
-                <constraint firstAttribute="bottom" secondItem="GCJ-pu-X7e" secondAttribute="bottom" constant="2" id="oKa-Nq-zDM"/>
+                <constraint firstItem="ZUV-NV-AXj" firstAttribute="top" secondItem="7jo-4M-EAp" secondAttribute="top" constant="7" id="J1W-eF-ZPA"/>
+                <constraint firstAttribute="bottom" secondItem="qpK-Kq-D8J" secondAttribute="bottom" constant="7" id="LBf-Gj-Q86"/>
+                <constraint firstItem="qpK-Kq-D8J" firstAttribute="leading" secondItem="7jo-4M-EAp" secondAttribute="leading" id="O9T-y4-gvL"/>
+                <constraint firstItem="qpK-Kq-D8J" firstAttribute="top" secondItem="ZUV-NV-AXj" secondAttribute="bottom" constant="7" id="gJq-gr-5nM"/>
+                <constraint firstItem="ZUV-NV-AXj" firstAttribute="leading" secondItem="7jo-4M-EAp" secondAttribute="leading" constant="20" symbolic="YES" id="gwI-Y4-Nyh"/>
+                <constraint firstAttribute="trailing" secondItem="qpK-Kq-D8J" secondAttribute="trailing" id="hAr-Oc-8OV"/>
+                <constraint firstItem="ZUV-NV-AXj" firstAttribute="centerX" secondItem="qpK-Kq-D8J" secondAttribute="centerX" id="sWO-qz-g5U"/>
             </constraints>
             <connections>
-                <outlet property="menu" destination="YhB-xx-QGO" id="F6X-TE-t3U"/>
+                <outlet property="nextKeyView" destination="ZUV-NV-AXj" id="SwV-cO-dbR"/>
             </connections>
-        </customView>
+        </view>
+        <customObject id="LuB-Uh-CCL" customClass="CMClipboardViewController">
+            <connections>
+                <outlet property="contentView" destination="qpK-Kq-D8J" id="4rg-4W-J9p"/>
+                <outlet property="searchField" destination="ZUV-NV-AXj" id="xox-dP-H1K"/>
+                <outlet property="view" destination="7jo-4M-EAp" id="jhP-EL-duc"/>
+            </connections>
+        </customObject>
     </objects>
 </document>

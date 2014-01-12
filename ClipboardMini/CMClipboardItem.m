@@ -28,11 +28,13 @@
 
 @implementation CMClipboardFileItem
 
+- (NSString *)fileName {
+    return [_fileUrl fileName];
+}
+
 - (id)initWithFileUrl:(NSURL *)fileUrl {
-    if (self = [super init]) {
+    if (self = [super init])
         _fileUrl = fileUrl;
-        _fileName = [fileUrl fileName];
-    }
     return self;
 }
 
@@ -43,6 +45,10 @@
 @end
 
 @implementation CMClipboardTextItem
+
+- (NSString *)trimmedClipboardText {
+    return [_clipboardText stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+}
 
 - (id)initWithClipboardText:(NSString *)cText {
     if (self = [super init])

@@ -6,13 +6,13 @@
 //  Copyright (c) 2014 Artem. All rights reserved.
 //
 
-#import "CMClipboardChecker.h"
+#import "CMChecker.h"
 
 NSString *ClipboardChecherNewItemNotification = @"ClipboardChecherNewItemNotification";
 
-static CMClipboardChecker *_clipboardChecker;
+static CMChecker *_clipboardChecker;
 
-@interface CMClipboardChecker () {
+@interface CMChecker () {
     NSTimer *_timer;
     NSArray *_pboardTypes;
     NSUInteger previousPboardChangeCount;
@@ -20,7 +20,7 @@ static CMClipboardChecker *_clipboardChecker;
 - (void)checkPasteboard:(NSTimer *)timer;
 @end
 
-@implementation CMClipboardChecker
+@implementation CMChecker
 
 
 #pragma mark -
@@ -72,7 +72,7 @@ static CMClipboardChecker *_clipboardChecker;
 + (instancetype)sharedClipboardChecker {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        _clipboardChecker = [[CMClipboardChecker alloc] init];
+        _clipboardChecker = [[CMChecker alloc] init];
     });
     return _clipboardChecker;
 }

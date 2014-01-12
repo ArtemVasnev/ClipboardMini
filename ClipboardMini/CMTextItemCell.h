@@ -8,8 +8,8 @@
 
 #import "CMHighlightingView.h"
 
-@interface CMTextMenuItemCell : CMHighlightingView {
-    __weak IBOutlet NSTextField *textLabel;
+@interface CMTextItemCell : CMHighlightingView {
+    IBOutlet NSTextField *textField;
 }
 
 - (void)setClipboardText:(NSString *)text;
