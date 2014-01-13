@@ -27,10 +27,11 @@
     
     [[CMChecker sharedClipboardChecker] seedChecker];
     
+    /*
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(resignKeyWindow)
                                                  name:NSWindowDidResignKeyNotification object:statusView.window];
-    
+    */
 }
 
 - (void)resignKeyWindow {

@@ -104,29 +104,37 @@
                     <rect key="frame" x="0.0" y="7" width="320" height="0.0"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <subviews>
-                        <scrollView autoresizesSubviews="NO" wantsLayer="YES" fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="eds-BX-ETz">
+                        <scrollView autoresizesSubviews="NO" wantsLayer="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="eds-BX-ETz">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="0.0"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <clipView key="contentView" ambiguous="YES" misplaced="YES" id="hcq-Uc-FhT">
+                            <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="hcq-Uc-FhT">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="0.0"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <view fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bqL-3K-Ufz">
+                                    <view fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bqL-3K-Ufz" customClass="RoundRectView">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="0.0"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     </view>
                                 </subviews>
                             </clipView>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="320" id="SVx-7f-RvG"/>
+                            </constraints>
                             <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="aYO-AA-BLT">
                                 <rect key="frame" x="-100" y="-100" width="318" height="16"/>
                                 <autoresizingMask key="autoresizingMask"/>
                             </scroller>
                             <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="56Q-5q-L9Y">
-                                <rect key="frame" x="304" y="0.0" width="16" height="0.0"/>
+                                <rect key="frame" x="-16" y="0.0" width="16" height="0.0"/>
                                 <autoresizingMask key="autoresizingMask"/>
                             </scroller>
                         </scrollView>
                     </subviews>
+                    <constraints>
+                        <constraint firstItem="eds-BX-ETz" firstAttribute="top" secondItem="qpK-Kq-D8J" secondAttribute="top" id="HgS-5M-4sY"/>
+                        <constraint firstItem="eds-BX-ETz" firstAttribute="leading" secondItem="qpK-Kq-D8J" secondAttribute="leading" id="e2z-Kr-gT1"/>
+                        <constraint firstAttribute="bottom" secondItem="eds-BX-ETz" secondAttribute="bottom" id="iXA-bR-x9d"/>
+                    </constraints>
                     <connections>
                         <outlet property="contentScrollView" destination="eds-BX-ETz" id="5Md-SF-9pB"/>
                         <outlet property="dataSource" destination="LuB-Uh-CCL" id="NGf-fv-f6P"/>

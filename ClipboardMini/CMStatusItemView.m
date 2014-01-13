@@ -7,6 +7,7 @@
 //
 
 #import "CMStatusItemView.h"
+#import "CMChecker.h"
 
 
 #define VIEW_ICON_PADDING 3
@@ -15,9 +16,21 @@
     NSRect _circleIconRect;
 }
 
+@property (nonatomic, assign) BOOL isNewPasteboardItem;
+- (void)newPastrboardItem:(NSNotification *)notification;
 @end
 
 @implementation CMStatusItemView
+
+- (void)newPastrboardItem:(NSNotification *)notification {
+    if (!_isNewPasteboardItem)
+        self.isNewPasteboardItem = YES;
+}
+
+- (void)setIsNewPasteboardItem:(BOOL)isNewPasteboardItem {
+    _isNewPasteboardItem = isNewPasteboardItem;
+    [self setNeedsDisplay:YES];
+}
 
 #pragma mark - 
 #pragma mark Mouse Events
@@ -26,6 +39,7 @@
 }
 
 - (void)mouseUp:(NSEvent *)theEvent {
+    self.isNewPasteboardItem = NO;
     [_delegate viewDidClicked:self];
 }
 
@@ -38,6 +52,11 @@
     self = [super initWithFrame:frame];
     if (self) {
         _circleIconRect = NSInsetRect(frame, VIEW_ICON_PADDING, VIEW_ICON_PADDING);
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(newPastrboardItem:)
+                                                     name:ClipboardChecherNewItemNotification
+                                                   object:nil];
     }
     return self;
 }
@@ -53,6 +72,12 @@
     NSBezierPath *circlePath = [NSBezierPath bezierPathWithOvalInRect:_circleIconRect];
     [[NSColor blackColor] setStroke];
     [circlePath stroke];
+    
+    if (_isNewPasteboardItem) {
+        NSBezierPath *newItemCircle = [NSBezierPath bezierPathWithOvalInRect:CGRectInset(_circleIconRect, VIEW_ICON_PADDING, VIEW_ICON_PADDING)];
+        [[NSColor redColor] setStroke];
+        [newItemCircle stroke];
+    }
 }
 
 @end

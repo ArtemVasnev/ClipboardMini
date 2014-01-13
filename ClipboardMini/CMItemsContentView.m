@@ -31,8 +31,7 @@
 - (void)mouseUp:(NSEvent *)theEvent {
     CGPoint location = [theEvent locationInWindow];
     location = [contentScrollView.documentView convertPoint:location fromView:nil];
-    
-    NSInteger selectedItem = (CGRectGetHeight([contentScrollView.documentView bounds]) - location.y) / _itemSize.height;
+    NSInteger selectedItem = location.y / _itemSize.height;
     [_delegate didSelectItemAtRow:selectedItem];
 }
 
@@ -45,18 +44,16 @@
     CGFloat totalHeight = _itemSize.height * [_cbItems count];
     CGFloat maxViewHeight = _itemSize.height * MAX_ITEMS;
     
-    NSPoint origin = NSMakePoint(0, totalHeight - _itemSize.height);
+    CGPoint origin = CGPointZero;
     
     for (NSView *itemCell in _cbItems) {
         itemCell.frame = NSMakeRect(origin.x, origin.y, _itemSize.width, _itemSize.height);
-        origin.y -= _itemSize.height;
+        origin.y += _itemSize.height;
     }
     
     CGFloat newHeight = (totalHeight < maxViewHeight) ? totalHeight : maxViewHeight;
-    [_delegate didChangeContentSize:NSMakeSize(_itemSize.width, newHeight)];
+    [_delegate didChangeContentSize:CGSizeMake(_itemSize.width, newHeight)];
     [self layout];
-    
-
 }
 
 - (void)removeAllSubviews {
@@ -67,6 +64,7 @@
     [_cbItems removeAllObjects];
 }
 
+
 #pragma mark -
 #pragma mark Public
 
@@ -75,27 +73,13 @@
     [_delegate didChangeContentSize:CGSizeMake(CGRectGetWidth(self.bounds), 0)];
     
 }
-- (void)layout {
-    [super layout];
-    contentScrollView.frame = self.bounds;
-    
-    NSRect frame = [contentScrollView.documentView frame];
-    frame.size = NSMakeSize(320,  _itemSize.height * [_cbItems count]);
-    [contentScrollView.documentView setFrame:frame];
-    
 
-}
 - (void)reload {
-    
     
     if (_cbItems.count > 0)
         [self removeAllSubviews];
     
-    
     NSInteger numberOfItems = [_dataSource numberOfItemsInContentView:self];
-    
-    if (numberOfItems == 0)
-        return;
     
     for (NSInteger idx = 0; idx < numberOfItems; idx++) {
         NSView *itemCell = [_dataSource contentView:self itemCellForRow:idx];
@@ -103,23 +87,32 @@
         [_cbItems addObject:itemCell];
     }
     
+    // Scroll the contentView to top
+    contentScrollView.verticalScroller.floatValue = 0;
+    [contentScrollView.contentView scrollToPoint:NSMakePoint(0, 0)];
+    
     BOOL allowScrolling = (numberOfItems > MAX_ITEMS);
     contentScrollView.hasVerticalScroller = allowScrolling;
     contentScrollView.verticalScrollElasticity = (allowScrolling) ? NSScrollElasticityAllowed : NSScrollElasticityNone;
     
     [self layoutItemCells];
-    // Scroll the contentView to top
-    CGFloat yScrollOrigin = ((NSView*)contentScrollView.documentView).frame.size.height - contentScrollView.contentSize.height;
-    [contentScrollView.contentView scrollToPoint:NSMakePoint(0, yScrollOrigin)];
-}
-
-
-- (void)awakeFromNib {
-    _cbItems = [@[] mutableCopy];
 }
 
 #pragma mark -
 #pragma mark Lifecycle
+
+- (void)layout {
+    [super layout];
+    contentScrollView.frame = self.bounds;
+    
+    NSRect frame = [contentScrollView.documentView frame];
+    frame.size = NSMakeSize(_itemSize.width,  _itemSize.height * [_cbItems count]);
+    [contentScrollView.documentView setFrame:frame];
+}
+
+- (void)awakeFromNib {
+    _cbItems = [@[] mutableCopy];
+}
 
 
 @end

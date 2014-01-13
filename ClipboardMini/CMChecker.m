@@ -56,7 +56,7 @@ static CMChecker *_clipboardChecker;
 #pragma mark Public
 
 - (void)seedChecker {
-    _timer = [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(checkPasteboard:) userInfo:nil repeats:YES];
+    _timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(checkPasteboard:) userInfo:nil repeats:YES];
     [_timer fire];
 }
 

@@ -251,15 +251,8 @@
     
     if (_isSuggestionMode) {
         _suggestions = [self suggestionsForText:textEditor.string];
-        if (_suggestions.count == 0) {
-            [contentView clear];
-            return;
-        } else {
-            //            [contentView reload];
-        }
-        //        return;
     }
-//    [contentView clear];
+
     [contentView reload];
 }
 
@@ -296,7 +289,7 @@
     _popover = [[NSPopover alloc] init];
     _popover.delegate = self;
     _popover.contentViewController = self;
-    _popover.behavior = NSPopoverBehaviorApplicationDefined;
+    _popover.behavior = NSPopoverBehaviorTransient;
 }
 
 - (id)init {

@@ -25,15 +25,15 @@
     
     return self;
 }
-
-
-
+- (BOOL)isFlipped {
+    return YES;
+}
 
 - (void)drawRect:(NSRect)dirtyRect
 {
-    NSBezierPath *roundRect = [NSBezierPath bezierPathWithRoundedRect:dirtyRect xRadius:_cornerRadius yRadius:_cornerRadius];
-    [[NSColor windowBackgroundColor] setFill];
-    [roundRect fill];
+//    NSBezierPath *roundRect = [NSBezierPath bezierPathWithRoundedRect:dirtyRect xRadius:_cornerRadius yRadius:_cornerRadius];
+//    [[NSColor blackColor] setFill];
+//    [roundRect fill];
 }
 
 @end
