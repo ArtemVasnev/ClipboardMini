@@ -128,7 +128,6 @@ static NSString * const CMVisibleRowNumberDidChangeNotification = @"CMVisibleRow
         NSUserDefaults *df = [NSUserDefaults standardUserDefaults];
         _visibleRowNumber = [df integerForKey:ScrollViewVisibleRowNumber];
         if (!_visibleRowNumber) {
-            NSLog(@"Set default");
             _visibleRowNumber = 4;
             [df setInteger:4 forKey:ScrollViewVisibleRowNumber];
             [df synchronize];

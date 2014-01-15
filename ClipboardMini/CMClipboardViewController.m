@@ -23,6 +23,8 @@
 #define kFileItemCellNibName @"CMFileItemCell"
 #define kTextItemCellNibName @"CMTextItemCell"
 
+#define SearchRegExPattern(ENTRY) ([NSString stringWithFormat:@"\\b%@[\\w-]*", ENTRY])
+
 
 
 @interface CMClipboardViewController () <CMItemsContentScrollViewDelegate, CMItemsContentScrollViewDataSource> {
@@ -34,6 +36,7 @@
     NSArray *_suggestions;
     
     CGSize emptyPopoverSize;
+    BOOL _skipTextEditorUpdate;
 }
 
 - (void)newPastrboardItem:(NSNotification *)notification;
@@ -48,6 +51,7 @@
 - (BOOL)isRepeatedClipboardText:(NSString *)cText;
 
 - (void)updateTextEditor:(NSText *)tEditor withText:(NSString *)text;
+- (NSRange)rangeOfFirstMathForRegExPattern:(NSString *)pattern inString:(NSString *)stringToMatch;
 - (NSArray *)suggestionsForText:(NSString *)text;
 
 @end
@@ -225,26 +229,44 @@
 #pragma mark -
 #pragma mark Suggestions
 
+- (void)presentSuggestionPreviewInTextEditor:(NSText *)editor {
+    CMClipboardItem *cItem = [_suggestions firstObject];
+    
+    NSString *suggestionTitle = (cItem.isFileItem) ? [(CMClipboardFileItem *)cItem fileName] : [(CMClipboardTextItem *)cItem trimmedClipboardText];
+    
+    NSRange suggestionRange = [self rangeOfFirstMathForRegExPattern:SearchRegExPattern(editor.string) inString:suggestionTitle];
+    
+    NSInteger currentLenght = editor.string.length;
+    
+    editor.string = [suggestionTitle substringWithRange:suggestionRange];
+    editor.selectedRange = NSMakeRange(currentLenght, editor.string.length - currentLenght);
+}
+
 - (void)updateTextEditor:(NSText *)tEditor withText:(NSString *)text {
     
 }
 
+- (NSRange)rangeOfFirstMathForRegExPattern:(NSString *)pattern inString:(NSString *)stringToMatch {
+    __block NSRange matchedRange = NSMakeRange(NSNotFound, 0);
+    NSRegularExpression *regEx = [NSRegularExpression regularExpressionWithPattern:pattern options:NSRegularExpressionCaseInsensitive error:nil];
+    [regEx enumerateMatchesInString:stringToMatch options:0 range:NSMakeRange(0, stringToMatch.length) usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
+        matchedRange = [result range];
+        *stop = YES;
+    }];
+    return matchedRange;
+    
+}
 
 - (NSArray *)suggestionsForText:(NSString *)text {
     NSMutableArray *suggestions = [@[] mutableCopy];
     
     NSString *stringToMatch;
-    NSString *pattern;
-    NSRegularExpression *regEx;
+    
     for (CMClipboardItem *cItem in _allClipboardItems) {
         stringToMatch = (cItem.isFileItem) ? [(CMClipboardFileItem *)cItem fileName] : [(CMClipboardTextItem *)cItem trimmedClipboardText];
-        pattern = [NSString stringWithFormat:@"\\b%@[\\w-]*", text];
-        regEx = [NSRegularExpression regularExpressionWithPattern:pattern options:NSRegularExpressionCaseInsensitive error:nil];
-        
-        [regEx enumerateMatchesInString:stringToMatch options:0 range:NSMakeRange(0, stringToMatch.length) usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
+        NSRange matchRange = [self rangeOfFirstMathForRegExPattern:SearchRegExPattern(text) inString:stringToMatch];
+        if (matchRange.location != NSNotFound)
             [suggestions addObject:cItem];
-            *stop = YES;
-        }];
     }
     
     return [NSArray arrayWithArray:suggestions];
@@ -259,10 +281,25 @@
     
     contentView.suggestionMode = ([textEditor.string isEqualToString:@""]) ? NO : YES;
     
-    if (contentView.suggestionMode)
+    if (contentView.suggestionMode) {
         _suggestions = [self suggestionsForText:textEditor.string];
-    
+        if (_suggestions.count > 0 && !_skipTextEditorUpdate)
+            [self presentSuggestionPreviewInTextEditor:searchField.currentEditor];
+    }
+    _skipTextEditorUpdate = NO;
     [contentView reload];
+}
+
+- (BOOL)control:(NSControl *)control textView:(NSTextView *)textView doCommandBySelector:(SEL)commandSelector {
+    if (commandSelector == @selector(deleteBackward:) || commandSelector == @selector(deleteForward:)) {
+        _skipTextEditorUpdate = YES;
+        return NO;
+    }
+    
+    if (commandSelector == @selector(insertNewline:) && ![control.stringValue isEqualToString:@""])
+            [self didSelectItemAtRow:0];
+    
+    return NO;
 }
 
 #pragma mark -
