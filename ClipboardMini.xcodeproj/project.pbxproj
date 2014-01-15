@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AC2BB9931885BCBB00A0B42B /* CMSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC2BB9911885BCBB00A0B42B /* CMSettingsViewController.m */; };
+		AC2BB9941885BCBB00A0B42B /* CMSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC2BB9921885BCBB00A0B42B /* CMSettingsViewController.xib */; };
+		AC2BB9971885C86600A0B42B /* NSLayoutConstraint+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = AC2BB9961885C86600A0B42B /* NSLayoutConstraint+Helpers.m */; };
+		AC2BB99A1885CAA300A0B42B /* CMFlippedCoordinatesView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC2BB9991885CAA300A0B42B /* CMFlippedCoordinatesView.m */; };
 		AC620009188007D4009771B3 /* CMAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AC62FFFB188007D3009771B3 /* CMAppDelegate.m */; };
 		AC62000A188007D4009771B3 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC62FFFC188007D3009771B3 /* MainMenu.xib */; };
 		AC62000B188007D4009771B3 /* CMHighlightingView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC62FFFE188007D4009771B3 /* CMHighlightingView.m */; };
@@ -20,7 +24,6 @@
 		AC62002018800805009771B3 /* NSURL+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = AC62001918800805009771B3 /* NSURL+Helpers.m */; };
 		AC62002118800805009771B3 /* CMChecker.m in Sources */ = {isa = PBXBuildFile; fileRef = AC62001B18800805009771B3 /* CMChecker.m */; };
 		AC62002218800805009771B3 /* CMClipboardItem.m in Sources */ = {isa = PBXBuildFile; fileRef = AC62001D18800805009771B3 /* CMClipboardItem.m */; };
-		AC62003018801E7C009771B3 /* RoundRectView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC62002F18801E7C009771B3 /* RoundRectView.m */; };
 		AC62FFC7188007BC009771B3 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC62FFC6188007BC009771B3 /* Cocoa.framework */; };
 		AC62FFD1188007BC009771B3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AC62FFCF188007BC009771B3 /* InfoPlist.strings */; };
 		AC62FFD3188007BD009771B3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AC62FFD2188007BD009771B3 /* main.m */; };
@@ -31,8 +34,10 @@
 		AC62FFEF188007BD009771B3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AC62FFED188007BD009771B3 /* InfoPlist.strings */; };
 		AC62FFF1188007BD009771B3 /* ClipboardMiniTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AC62FFF0188007BD009771B3 /* ClipboardMiniTests.m */; };
 		AC6FF4931881736600CAE89E /* CMStatusItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6FF4921881736600CAE89E /* CMStatusItemView.m */; };
-		AC6FF49618817F3300CAE89E /* CMItemsContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6FF49518817F3300CAE89E /* CMItemsContentView.m */; };
+		AC6FF49618817F3300CAE89E /* CMItemsContentScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6FF49518817F3300CAE89E /* CMItemsContentScrollView.m */; };
 		AC6FF4991881C92800CAE89E /* NSWindow+canBecomeKeyWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6FF4981881C92800CAE89E /* NSWindow+canBecomeKeyWindow.m */; };
+		AC92A12A1884A7CA006C94E4 /* CMSettingsScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC92A1291884A7CA006C94E4 /* CMSettingsScrollView.m */; };
+		ACCFFCFE1884247300D9FA88 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACCFFCFD1884247300D9FA88 /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +51,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AC2BB9901885BCBB00A0B42B /* CMSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMSettingsViewController.h; sourceTree = "<group>"; };
+		AC2BB9911885BCBB00A0B42B /* CMSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMSettingsViewController.m; sourceTree = "<group>"; };
+		AC2BB9921885BCBB00A0B42B /* CMSettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CMSettingsViewController.xib; sourceTree = "<group>"; };
+		AC2BB9951885C86600A0B42B /* NSLayoutConstraint+Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSLayoutConstraint+Helpers.h"; sourceTree = "<group>"; };
+		AC2BB9961885C86600A0B42B /* NSLayoutConstraint+Helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSLayoutConstraint+Helpers.m"; sourceTree = "<group>"; };
+		AC2BB9981885CAA300A0B42B /* CMFlippedCoordinatesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMFlippedCoordinatesView.h; sourceTree = "<group>"; };
+		AC2BB9991885CAA300A0B42B /* CMFlippedCoordinatesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMFlippedCoordinatesView.m; sourceTree = "<group>"; };
 		AC620000188007D4009771B3 /* CMTextItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMTextItemCell.m; sourceTree = "<group>"; };
 		AC620001188007D4009771B3 /* CMTextItemCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CMTextItemCell.xib; sourceTree = "<group>"; };
 		AC620002188007D4009771B3 /* CMFileItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMFileItemCell.h; sourceTree = "<group>"; };
@@ -63,8 +75,6 @@
 		AC62001B18800805009771B3 /* CMChecker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMChecker.m; sourceTree = "<group>"; };
 		AC62001C18800805009771B3 /* CMClipboardItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMClipboardItem.h; sourceTree = "<group>"; };
 		AC62001D18800805009771B3 /* CMClipboardItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMClipboardItem.m; sourceTree = "<group>"; };
-		AC62002E18801E7C009771B3 /* RoundRectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoundRectView.h; sourceTree = "<group>"; };
-		AC62002F18801E7C009771B3 /* RoundRectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoundRectView.m; sourceTree = "<group>"; };
 		AC62FFC3188007BC009771B3 /* ClipboardMini.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClipboardMini.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC62FFC6188007BC009771B3 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		AC62FFC9188007BC009771B3 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -89,11 +99,14 @@
 		AC62FFFF188007D4009771B3 /* CMTextItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMTextItemCell.h; sourceTree = "<group>"; };
 		AC6FF4911881736600CAE89E /* CMStatusItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMStatusItemView.h; sourceTree = "<group>"; };
 		AC6FF4921881736600CAE89E /* CMStatusItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMStatusItemView.m; sourceTree = "<group>"; };
-		AC6FF49418817F3300CAE89E /* CMItemsContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMItemsContentView.h; sourceTree = "<group>"; };
-		AC6FF49518817F3300CAE89E /* CMItemsContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMItemsContentView.m; sourceTree = "<group>"; };
+		AC6FF49418817F3300CAE89E /* CMItemsContentScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMItemsContentScrollView.h; sourceTree = "<group>"; };
+		AC6FF49518817F3300CAE89E /* CMItemsContentScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMItemsContentScrollView.m; sourceTree = "<group>"; };
 		AC6FF4971881C92800CAE89E /* NSWindow+canBecomeKeyWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSWindow+canBecomeKeyWindow.h"; sourceTree = "<group>"; };
 		AC6FF4981881C92800CAE89E /* NSWindow+canBecomeKeyWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSWindow+canBecomeKeyWindow.m"; sourceTree = "<group>"; };
+		AC92A1281884A7CA006C94E4 /* CMSettingsScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMSettingsScrollView.h; sourceTree = "<group>"; };
+		AC92A1291884A7CA006C94E4 /* CMSettingsScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMSettingsScrollView.m; sourceTree = "<group>"; };
 		AC9F697C18802FA600EF7807 /* CMNotificationNames.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMNotificationNames.h; sourceTree = "<group>"; };
+		ACCFFCFD1884247300D9FA88 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +114,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ACCFFCFE1884247300D9FA88 /* QuartzCore.framework in Frameworks */,
 				AC62FFC7188007BC009771B3 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -122,6 +136,9 @@
 			children = (
 				AC620007188007D4009771B3 /* CMClipboardViewController.h */,
 				AC620008188007D4009771B3 /* CMClipboardViewController.m */,
+				AC2BB9901885BCBB00A0B42B /* CMSettingsViewController.h */,
+				AC2BB9911885BCBB00A0B42B /* CMSettingsViewController.m */,
+				AC2BB9921885BCBB00A0B42B /* CMSettingsViewController.xib */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -133,10 +150,12 @@
 				AC6FF4921881736600CAE89E /* CMStatusItemView.m */,
 				AC62FFFD188007D3009771B3 /* CMHighlightingView.h */,
 				AC62FFFE188007D4009771B3 /* CMHighlightingView.m */,
-				AC62002E18801E7C009771B3 /* RoundRectView.h */,
-				AC62002F18801E7C009771B3 /* RoundRectView.m */,
-				AC6FF49418817F3300CAE89E /* CMItemsContentView.h */,
-				AC6FF49518817F3300CAE89E /* CMItemsContentView.m */,
+				AC2BB9981885CAA300A0B42B /* CMFlippedCoordinatesView.h */,
+				AC2BB9991885CAA300A0B42B /* CMFlippedCoordinatesView.m */,
+				AC6FF49418817F3300CAE89E /* CMItemsContentScrollView.h */,
+				AC6FF49518817F3300CAE89E /* CMItemsContentScrollView.m */,
+				AC92A1281884A7CA006C94E4 /* CMSettingsScrollView.h */,
+				AC92A1291884A7CA006C94E4 /* CMSettingsScrollView.m */,
 				AC9F697B18802BED00EF7807 /* Cliboard Menu */,
 			);
 			name = View;
@@ -151,6 +170,8 @@
 				AC62001718800805009771B3 /* NSImage+Helpers.m */,
 				AC62001818800805009771B3 /* NSURL+Helpers.h */,
 				AC62001918800805009771B3 /* NSURL+Helpers.m */,
+				AC2BB9951885C86600A0B42B /* NSLayoutConstraint+Helpers.h */,
+				AC2BB9961885C86600A0B42B /* NSLayoutConstraint+Helpers.m */,
 				AC9F697C18802FA600EF7807 /* CMNotificationNames.h */,
 			);
 			name = Helpers;
@@ -189,6 +210,7 @@
 		AC62FFC5188007BC009771B3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				ACCFFCFD1884247300D9FA88 /* QuartzCore.framework */,
 				AC62FFC6188007BC009771B3 /* Cocoa.framework */,
 				AC62FFE5188007BD009771B3 /* XCTest.framework */,
 				AC62FFC8188007BC009771B3 /* Other Frameworks */,
@@ -343,6 +365,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC2BB9941885BCBB00A0B42B /* CMSettingsViewController.xib in Resources */,
 				AC62000D188007D4009771B3 /* CMTextItemCell.xib in Resources */,
 				AC62FFD1188007BC009771B3 /* InfoPlist.strings in Resources */,
 				AC62FFDF188007BD009771B3 /* Images.xcassets in Resources */,
@@ -370,6 +393,7 @@
 				AC62002018800805009771B3 /* NSURL+Helpers.m in Sources */,
 				AC62000C188007D4009771B3 /* CMTextItemCell.m in Sources */,
 				AC62002118800805009771B3 /* CMChecker.m in Sources */,
+				AC92A12A1884A7CA006C94E4 /* CMSettingsScrollView.m in Sources */,
 				AC62002218800805009771B3 /* CMClipboardItem.m in Sources */,
 				AC620009188007D4009771B3 /* CMAppDelegate.m in Sources */,
 				AC62000E188007D4009771B3 /* CMFileItemCell.m in Sources */,
@@ -378,10 +402,12 @@
 				AC62000B188007D4009771B3 /* CMHighlightingView.m in Sources */,
 				AC620011188007D4009771B3 /* CMClipboardViewController.m in Sources */,
 				AC6FF4931881736600CAE89E /* CMStatusItemView.m in Sources */,
-				AC62003018801E7C009771B3 /* RoundRectView.m in Sources */,
+				AC2BB9931885BCBB00A0B42B /* CMSettingsViewController.m in Sources */,
 				AC62FFD3188007BD009771B3 /* main.m in Sources */,
+				AC2BB9971885C86600A0B42B /* NSLayoutConstraint+Helpers.m in Sources */,
 				AC62001F18800805009771B3 /* NSImage+Helpers.m in Sources */,
-				AC6FF49618817F3300CAE89E /* CMItemsContentView.m in Sources */,
+				AC6FF49618817F3300CAE89E /* CMItemsContentScrollView.m in Sources */,
+				AC2BB99A1885CAA300A0B42B /* CMFlippedCoordinatesView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -23,7 +23,7 @@
 @implementation CMStatusItemView
 
 - (void)newPastrboardItem:(NSNotification *)notification {
-    if (!_isNewPasteboardItem)
+    if (!_isNewPasteboardItem && ![self.window isKeyWindow])
         self.isNewPasteboardItem = YES;
 }
 
@@ -55,7 +55,7 @@
         
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(newPastrboardItem:)
-                                                     name:ClipboardChecherNewItemNotification
+                                                     name:CMClipboardNewItemNotification
                                                    object:nil];
     }
     return self;

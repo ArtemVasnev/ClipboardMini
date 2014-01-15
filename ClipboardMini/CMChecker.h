@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-APPKIT_EXTERN NSString *ClipboardChecherNewItemNotification;
+APPKIT_EXTERN NSString *CMClipboardNewItemNotification;
 
 @interface CMChecker : NSObject
 

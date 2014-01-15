@@ -8,11 +8,13 @@
 
 #import "CMClipboardViewController.h"
 #import "CMChecker.h"
+#import <QuartzCore/QuartzCore.h>
 
 #import "CMFileItemCell.h"
 #import "CMTextItemCell.h"
 #import "CMClipboardItem.h"
-#import "CMItemsContentView.h"
+#import "CMItemsContentScrollView.h"
+#import "CMSettingsScrollView.h"
 
 #import "NSMutableArray+Helpers.h"
 #import "NSURL+Helpers.h"
@@ -23,7 +25,7 @@
 
 
 
-@interface CMClipboardViewController () <CMItemsContentViewDelegate, CMItemsContentViewDataSource> {
+@interface CMClipboardViewController () <CMItemsContentScrollViewDelegate, CMItemsContentScrollViewDataSource> {
     
     NSMutableArray *_allClipboardItems;
     NSMutableArray *_textClipboardItems;
@@ -32,12 +34,9 @@
     NSArray *_suggestions;
     
     CGSize emptyPopoverSize;
-    
 }
-@property (nonatomic, assign) BOOL isSuggestionMode;
 
 - (void)newPastrboardItem:(NSNotification *)notification;
-
 
 - (NSView *)itemCellForClipboardFileItem:(CMClipboardFileItem *)fileItem;
 - (NSView *)itemCellForClipboardTextItem:(CMClipboardTextItem *)textItem;
@@ -48,7 +47,6 @@
 - (BOOL)isRepeatedFile:(NSURL *)fileUrl;
 - (BOOL)isRepeatedClipboardText:(NSString *)cText;
 
-
 - (void)updateTextEditor:(NSText *)tEditor withText:(NSString *)text;
 - (NSArray *)suggestionsForText:(NSString *)text;
 
@@ -56,6 +54,21 @@
 
 
 @implementation CMClipboardViewController
+
+#pragma mark -
+#pragma mark Settings
+
+- (void)displaySettings:(id)sender {
+    
+    [settingsView.documentView setHidden:YES];
+    
+    settingsView.isShowed = !settingsView.isShowed;
+    NSInteger newHeight = emptyPopoverSize.height + CGRectGetHeight(contentView.bounds) + CGRectGetHeight([settingsView.documentView bounds]);
+    _popover.contentSize = NSMakeSize(emptyPopoverSize.width, newHeight);
+    
+    [settingsView.documentView setHidden:NO];
+}
+
 
 #pragma mark -
 #pragma mark Creation and Handling Menu Items
@@ -70,7 +83,9 @@
 }
 
 - (NSView *)itemCellForClipboardTextItem:(CMClipboardTextItem *)textItem {
-    NSViewController *vc = [[NSViewController alloc] initWithNibName:kTextItemCellNibName bundle:nil];
+    
+    NSViewController *vc = [[NSViewController alloc] initWithNibName:kTextItemCellNibName
+                                                              bundle:nil];
     
     CMTextItemCell *cell = (CMTextItemCell *)vc.view;
     [cell setClipboardText:textItem.trimmedClipboardText];
@@ -157,31 +172,28 @@
         }
     }
     
-    
     if (clipboardItem) {
         if (!_allClipboardItems)
             _allClipboardItems = [@[] mutableCopy];
         
         [_allClipboardItems insertObject:clipboardItem atIndex:0];
+        [contentView reload];
     }
-    
 }
 
 
 #pragma mark -
-#pragma mark ItemsContent View Delegate
+#pragma mark Items ScrollView View Delegate
 
 - (void)didChangeContentSize:(CGSize)newSize {
-    NSSize targetSize = CGSizeMake(emptyPopoverSize.width, emptyPopoverSize.height + newSize.height);
-    _popover.contentSize = targetSize;
-    [self.view layoutSubtreeIfNeeded];
+    _popover.contentSize = CGSizeMake(emptyPopoverSize.width, emptyPopoverSize.height + CGRectGetHeight(settingsView.bounds) + newSize.height);
 }
 
 
 - (void)didSelectItemAtRow:(NSInteger)row {
     [_popover close];
     CMClipboardItem *item;
-    item = (_isSuggestionMode) ? _suggestions[row] : _allClipboardItems[row];
+    item = (contentView.suggestionMode) ? _suggestions[row] : _allClipboardItems[row];
     
     if (item.isFileItem)
         [self selectFileItem:(CMClipboardFileItem *)item];
@@ -189,18 +201,17 @@
         [self selectTextItem:(CMClipboardTextItem *)item];
 }
 
-
 #pragma mark -
-#pragma mark ItemsContent View Data Source
+#pragma mark Items ScrollView Data Source
 
-- (NSInteger)numberOfItemsInContentView:(CMItemsContentView *)cView {
-    NSInteger numberOfItems = (_isSuggestionMode) ? _suggestions.count : _allClipboardItems.count;
+- (NSInteger)numberOfItemsInContentView:(CMItemsContentScrollView *)cView {
+    NSInteger numberOfItems = (contentView.suggestionMode) ? _suggestions.count : _allClipboardItems.count;
     return numberOfItems;
 }
 
-- (NSView *)contentView:(CMItemsContentView *)cView itemCellForRow:(NSInteger)row {
+- (NSView *)contentView:(CMItemsContentScrollView *)cView itemCellForRow:(NSInteger)row {
     CMClipboardItem *item;
-    item = (_isSuggestionMode) ? _suggestions[row] : _allClipboardItems[row];
+    item = (contentView.suggestionMode) ? _suggestions[row] : _allClipboardItems[row];
     
     NSView *itemCell = nil;
     if (item.isFileItem)
@@ -211,29 +222,29 @@
 }
 
 
-
 #pragma mark -
 #pragma mark Suggestions
-
 
 - (void)updateTextEditor:(NSText *)tEditor withText:(NSString *)text {
     
 }
 
-// Looking item for presice file name,
-// Same for text by this time
-// Should change to search by words at future
+
 - (NSArray *)suggestionsForText:(NSString *)text {
     NSMutableArray *suggestions = [@[] mutableCopy];
     
-    NSRange matchRange;
-    NSString *textToMatch;
+    NSString *stringToMatch;
+    NSString *pattern;
+    NSRegularExpression *regEx;
     for (CMClipboardItem *cItem in _allClipboardItems) {
-        textToMatch = (cItem.isFileItem) ? [(CMClipboardFileItem *)cItem fileName] : [(CMClipboardTextItem *)cItem trimmedClipboardText];
-        matchRange = [textToMatch rangeOfString:text options:NSCaseInsensitiveSearch];
+        stringToMatch = (cItem.isFileItem) ? [(CMClipboardFileItem *)cItem fileName] : [(CMClipboardTextItem *)cItem trimmedClipboardText];
+        pattern = [NSString stringWithFormat:@"\\b%@[\\w-]*", text];
+        regEx = [NSRegularExpression regularExpressionWithPattern:pattern options:NSRegularExpressionCaseInsensitive error:nil];
         
-        if (matchRange.location == 0)
+        [regEx enumerateMatchesInString:stringToMatch options:0 range:NSMakeRange(0, stringToMatch.length) usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
             [suggestions addObject:cItem];
+            *stop = YES;
+        }];
     }
     
     return [NSArray arrayWithArray:suggestions];
@@ -243,19 +254,16 @@
 #pragma mark -
 #pragma mark NSTextField Delegate
 
-
 - (void)controlTextDidChange:(NSNotification *)obj {
     NSText *textEditor = [searchField currentEditor];
     
-    self.isSuggestionMode = ([textEditor.string isEqualToString:@""]) ? NO : YES;
+    contentView.suggestionMode = ([textEditor.string isEqualToString:@""]) ? NO : YES;
     
-    if (_isSuggestionMode) {
+    if (contentView.suggestionMode)
         _suggestions = [self suggestionsForText:textEditor.string];
-    }
-
+    
     [contentView reload];
 }
-
 
 #pragma mark -
 #pragma mark NSPopover Delegate
@@ -271,19 +279,19 @@
     [searchField becomeFirstResponder];
     searchField.stringValue = @"";
     
-    _isSuggestionMode = NO;
+    contentView.suggestionMode = NO;
     [contentView reload];
 }
 
-- (void)popoverDidClose:(NSNotification *)notification {
-    [contentView clear];
-}
 
+- (void)popoverDidClose:(NSNotification *)notification {
+    _suggestions = nil;
+    if (settingsView.isShowed)
+        settingsView.isShowed = NO;
+}
 
 #pragma mark -
 #pragma mark Lifecycle
-
-
 
 - (void)awakeFromNib {
     _popover = [[NSPopover alloc] init];
@@ -294,10 +302,9 @@
 
 - (id)init {
     if (self = [super init]) {
-        
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(newPastrboardItem:)
-                                                     name:ClipboardChecherNewItemNotification
+                                                     name:CMClipboardNewItemNotification
                                                    object:nil];
     }
     return self;
