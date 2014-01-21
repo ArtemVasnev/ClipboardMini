@@ -11,8 +11,8 @@
 #import "CMClipboardViewController.h"
 
 @interface CMAppDelegate : NSObject <NSApplicationDelegate> {
-    NSStatusItem *_appStatusItem;
+    NSStatusItem *appStatusItem;
 }
 @property (assign) IBOutlet NSWindow *window;
-@property (nonatomic, weak) IBOutlet CMClipboardViewController *cbViewController;
+@property (weak, nonatomic) IBOutlet CMClipboardViewController *cbViewController;
 @end

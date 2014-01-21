@@ -20,23 +20,21 @@
 #import "NSURL+Helpers.h"
 
 
-#define kFileItemCellNibName @"CMFileItemCell"
-#define kTextItemCellNibName @"CMTextItemCell"
+static NSString * const CMFileItemCellNibName = @"CMFileItemCell";
+static NSString * const CMTextItemCellNibName = @"CMTextItemCell";
 
 #define SearchRegExPattern(ENTRY) ([NSString stringWithFormat:@"\\b%@[\\w-]*", ENTRY])
 
-
-
 @interface CMClipboardViewController () <CMItemsContentScrollViewDelegate, CMItemsContentScrollViewDataSource> {
     
-    NSMutableArray *_allClipboardItems;
-    NSMutableArray *_textClipboardItems;
-    NSMutableArray *_fileClipboardItems;
+    NSMutableArray *allClipboardItems;
+    NSMutableArray *textClipboardItems;
+    NSMutableArray *fileClipboardItems;
     
-    NSArray *_suggestions;
+    NSArray *suggestions;
     
     CGSize emptyPopoverSize;
-    BOOL _skipTextEditorUpdate;
+    BOOL skipTextEditorUpdate;
 }
 
 - (void)newPastrboardItem:(NSNotification *)notification;
@@ -50,7 +48,7 @@
 - (BOOL)isRepeatedFile:(NSURL *)fileUrl;
 - (BOOL)isRepeatedClipboardText:(NSString *)cText;
 
-- (void)updateTextEditor:(NSText *)tEditor withText:(NSString *)text;
+- (void)presentSuggestionPreviewInTextEditor:(NSText *)editor;
 - (NSRange)rangeOfFirstMathForRegExPattern:(NSString *)pattern inString:(NSString *)stringToMatch;
 - (NSArray *)suggestionsForText:(NSString *)text;
 
@@ -68,7 +66,7 @@
     
     settingsView.isShowed = !settingsView.isShowed;
     NSInteger newHeight = emptyPopoverSize.height + CGRectGetHeight(contentView.bounds) + CGRectGetHeight([settingsView.documentView bounds]);
-    _popover.contentSize = NSMakeSize(emptyPopoverSize.width, newHeight);
+    self.popover.contentSize = NSMakeSize(emptyPopoverSize.width, newHeight);
     
     [settingsView.documentView setHidden:NO];
 }
@@ -78,7 +76,7 @@
 #pragma mark Creation and Handling Menu Items
 - (NSView *)itemCellForClipboardFileItem:(CMClipboardFileItem *)fileItem {
     
-    NSViewController *vc = [[NSViewController alloc] initWithNibName:kFileItemCellNibName bundle:nil];
+    NSViewController *vc = [[NSViewController alloc] initWithNibName:CMFileItemCellNibName bundle:nil];
     
     CMFileItemCell *cell = (CMFileItemCell *)vc.view;
     [cell setFileUrl:fileItem.fileUrl icon:fileItem.icon];
@@ -88,7 +86,7 @@
 
 - (NSView *)itemCellForClipboardTextItem:(CMClipboardTextItem *)textItem {
     
-    NSViewController *vc = [[NSViewController alloc] initWithNibName:kTextItemCellNibName
+    NSViewController *vc = [[NSViewController alloc] initWithNibName:CMTextItemCellNibName
                                                               bundle:nil];
     
     CMTextItemCell *cell = (CMTextItemCell *)vc.view;
@@ -99,7 +97,7 @@
 
 - (void)selectFileItem:(CMClipboardFileItem *)fileItem {
     [[NSWorkspace sharedWorkspace] openURL:fileItem.fileUrl];
-    [_allClipboardItems moveObjectToBegining:fileItem];
+    [allClipboardItems moveObjectToBegining:fileItem];
 }
 
 - (void)selectTextItem:(CMClipboardTextItem *)textItem {
@@ -108,22 +106,22 @@
     NSPasteboard *pBoard = [NSPasteboard generalPasteboard];
     [pBoard clearContents];
     [pBoard writeObjects:@[textItem.clipboardText]];
-    [_allClipboardItems moveObjectToBegining:textItem];
+    [allClipboardItems moveObjectToBegining:textItem];
     
     [[CMChecker sharedClipboardChecker] seedChecker];
 }
 
 
 - (BOOL)isRepeatedFile:(NSURL *)fileUrl {
-    __block BOOL isRepeated = NO;
+
     
-    if (!_fileClipboardItems) {
-        _fileClipboardItems = [@[] mutableCopy];
-        return isRepeated;
+    if (!fileClipboardItems) {
+        fileClipboardItems = [@[] mutableCopy];
+        return NO;
     }
     
-    [_fileClipboardItems enumerateObjectsUsingBlock:^(CMClipboardFileItem *fileItem, NSUInteger idx, BOOL *stop) {
-        
+    __block BOOL isRepeated = NO;
+    [fileClipboardItems enumerateObjectsUsingBlock:^(CMClipboardFileItem *fileItem, NSUInteger idx, BOOL *stop) {
         if ([[fileUrl path] isEqualToString:[fileItem.fileUrl path]]) {
             isRepeated = YES;
             *stop = YES;
@@ -134,15 +132,14 @@
 }
 
 - (BOOL)isRepeatedClipboardText:(NSString *)cText {
-    __block BOOL isRepeated = NO;
-    
-    if (!_textClipboardItems) {
-        _textClipboardItems = [@[] mutableCopy];
-        return isRepeated;
+
+    if (!textClipboardItems) {
+        textClipboardItems = [@[] mutableCopy];
+        return NO;
     }
     
-    [_textClipboardItems enumerateObjectsUsingBlock:^(CMClipboardTextItem *textItem, NSUInteger idx, BOOL *stop) {
-        
+    __block BOOL isRepeated = NO;
+    [textClipboardItems enumerateObjectsUsingBlock:^(CMClipboardTextItem *textItem, NSUInteger idx, BOOL *stop) {
         if ([cText isEqualToString:[textItem clipboardText]]) {
             isRepeated = YES;
             *stop = YES;
@@ -166,21 +163,20 @@
         NSURL *fileUrl = [NSURL URLWithString:clipboardString];
         if (![self isRepeatedFile:fileUrl]) {
             clipboardItem = [CMClipboardItem clipboardItemWithUrl:fileUrl];
-            [_fileClipboardItems addObject:clipboardItem];
+            [fileClipboardItems addObject:clipboardItem];
         }
-    }
-    else if (UTTypeConformsTo((__bridge CFStringRef)dataType, kUTTypeText)) {
+    } else if (UTTypeConformsTo((__bridge CFStringRef)dataType, kUTTypeText)) {
         if (![self isRepeatedClipboardText:clipboardString]) {
             clipboardItem = [CMClipboardItem clipboardItemWithText:clipboardString];
-            [_textClipboardItems addObject:clipboardItem];
+            [textClipboardItems addObject:clipboardItem];
         }
     }
     
     if (clipboardItem) {
-        if (!_allClipboardItems)
-            _allClipboardItems = [@[] mutableCopy];
+        if (!allClipboardItems)
+            allClipboardItems = [@[] mutableCopy];
         
-        [_allClipboardItems insertObject:clipboardItem atIndex:0];
+        [allClipboardItems insertObject:clipboardItem atIndex:0];
         [contentView reload];
     }
 }
@@ -190,14 +186,14 @@
 #pragma mark Items ScrollView View Delegate
 
 - (void)didChangeContentSize:(CGSize)newSize {
-    _popover.contentSize = CGSizeMake(emptyPopoverSize.width, emptyPopoverSize.height + CGRectGetHeight(settingsView.bounds) + newSize.height);
+    self.popover.contentSize = CGSizeMake(emptyPopoverSize.width, emptyPopoverSize.height + CGRectGetHeight(settingsView.bounds) + newSize.height);
 }
 
 
 - (void)didSelectItemAtRow:(NSInteger)row {
-    [_popover close];
+    [self.popover close];
     CMClipboardItem *item;
-    item = (contentView.suggestionMode) ? _suggestions[row] : _allClipboardItems[row];
+    item = (contentView.suggestionMode) ? suggestions[row] : allClipboardItems[row];
     
     if (item.isFileItem)
         [self selectFileItem:(CMClipboardFileItem *)item];
@@ -209,13 +205,13 @@
 #pragma mark Items ScrollView Data Source
 
 - (NSInteger)numberOfItemsInContentView:(CMItemsContentScrollView *)cView {
-    NSInteger numberOfItems = (contentView.suggestionMode) ? _suggestions.count : _allClipboardItems.count;
+    NSInteger numberOfItems = (contentView.suggestionMode) ? suggestions.count : allClipboardItems.count;
     return numberOfItems;
 }
 
 - (NSView *)contentView:(CMItemsContentScrollView *)cView itemCellForRow:(NSInteger)row {
     CMClipboardItem *item;
-    item = (contentView.suggestionMode) ? _suggestions[row] : _allClipboardItems[row];
+    item = (contentView.suggestionMode) ? suggestions[row] : allClipboardItems[row];
     
     NSView *itemCell = nil;
     if (item.isFileItem)
@@ -230,7 +226,7 @@
 #pragma mark Suggestions
 
 - (void)presentSuggestionPreviewInTextEditor:(NSText *)editor {
-    CMClipboardItem *cItem = [_suggestions firstObject];
+    CMClipboardItem *cItem = [suggestions firstObject];
     
     NSString *suggestionTitle = (cItem.isFileItem) ? [(CMClipboardFileItem *)cItem fileName] : [(CMClipboardTextItem *)cItem trimmedClipboardText];
     
@@ -240,10 +236,6 @@
     
     editor.string = [suggestionTitle substringWithRange:suggestionRange];
     editor.selectedRange = NSMakeRange(currentLenght, editor.string.length - currentLenght);
-}
-
-- (void)updateTextEditor:(NSText *)tEditor withText:(NSString *)text {
-    
 }
 
 - (NSRange)rangeOfFirstMathForRegExPattern:(NSString *)pattern inString:(NSString *)stringToMatch {
@@ -258,18 +250,20 @@
 }
 
 - (NSArray *)suggestionsForText:(NSString *)text {
-    NSMutableArray *suggestions = [@[] mutableCopy];
+    
+    NSMutableArray *suggestionsArray = [@[] mutableCopy];
     
     NSString *stringToMatch;
     
-    for (CMClipboardItem *cItem in _allClipboardItems) {
+    for (CMClipboardItem *cItem in allClipboardItems) {
         stringToMatch = (cItem.isFileItem) ? [(CMClipboardFileItem *)cItem fileName] : [(CMClipboardTextItem *)cItem trimmedClipboardText];
         NSRange matchRange = [self rangeOfFirstMathForRegExPattern:SearchRegExPattern(text) inString:stringToMatch];
+        
         if (matchRange.location != NSNotFound)
-            [suggestions addObject:cItem];
+            [suggestionsArray addObject:cItem];
     }
     
-    return [NSArray arrayWithArray:suggestions];
+    return [NSArray arrayWithArray:suggestionsArray];
 }
 
 
@@ -282,22 +276,22 @@
     contentView.suggestionMode = ([textEditor.string isEqualToString:@""]) ? NO : YES;
     
     if (contentView.suggestionMode) {
-        _suggestions = [self suggestionsForText:textEditor.string];
-        if (_suggestions.count > 0 && !_skipTextEditorUpdate)
+        suggestions = [self suggestionsForText:textEditor.string];
+        if (suggestions.count > 0 && !skipTextEditorUpdate)
             [self presentSuggestionPreviewInTextEditor:searchField.currentEditor];
     }
-    _skipTextEditorUpdate = NO;
+    skipTextEditorUpdate = NO;
     [contentView reload];
 }
 
 - (BOOL)control:(NSControl *)control textView:(NSTextView *)textView doCommandBySelector:(SEL)commandSelector {
-    if (commandSelector == @selector(deleteBackward:) || commandSelector == @selector(deleteForward:)) {
-        _skipTextEditorUpdate = YES;
-        return NO;
-    }
+    if (commandSelector == @selector(deleteBackward:)
+        || commandSelector == @selector(deleteForward:))
+        skipTextEditorUpdate = YES;
     
-    if (commandSelector == @selector(insertNewline:) && ![control.stringValue isEqualToString:@""])
-            [self didSelectItemAtRow:0];
+    if (commandSelector == @selector(insertNewline:)
+        && ![control.stringValue isEqualToString:@""])
+        [self didSelectItemAtRow:0];
     
     return NO;
 }
@@ -309,7 +303,7 @@
     
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        emptyPopoverSize = _popover.contentSize;
+        emptyPopoverSize = self.popover.contentSize;
     });
     
     [NSApp activateIgnoringOtherApps:YES];
@@ -322,7 +316,7 @@
 
 
 - (void)popoverDidClose:(NSNotification *)notification {
-    _suggestions = nil;
+    suggestions = nil;
     if (settingsView.isShowed)
         settingsView.isShowed = NO;
 }
@@ -331,10 +325,10 @@
 #pragma mark Lifecycle
 
 - (void)awakeFromNib {
-    _popover = [[NSPopover alloc] init];
-    _popover.delegate = self;
-    _popover.contentViewController = self;
-    _popover.behavior = NSPopoverBehaviorTransient;
+    self.popover = [[NSPopover alloc] init];
+    self.popover.delegate = self;
+    self.popover.contentViewController = self;
+    self.popover.behavior = NSPopoverBehaviorTransient;
 }
 
 - (id)init {

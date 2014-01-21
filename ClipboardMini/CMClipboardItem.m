@@ -10,10 +10,11 @@
 #import "NSURL+Helpers.h"
 #import "NSImage+Helpers.h"
 
+#pragma mark - Base Clipboard Item Implementation
 @implementation CMClipboardItem
 
 - (BOOL)isFileItem {
-    return ([self isKindOfClass:[CMClipboardFileItem class]]) ? YES : NO;
+    return [self isKindOfClass:[CMClipboardFileItem class]];
 }
 
 + (instancetype)clipboardItemWithUrl:(NSURL *)url {
@@ -26,7 +27,7 @@
 
 @end
 
-
+#pragma mark - Clipboard File Item Implementation
 @implementation CMClipboardFileItem
 
 - (NSString *)fileName {
@@ -36,7 +37,6 @@
 - (id)initWithFileUrl:(NSURL *)fileUrl {
     if (self = [super init]) {
         _fileUrl = fileUrl;
-//        __block NSImage *thumb = _icon;
         [IHQueue() addOperationWithBlock:^{
             _icon = [NSImage getIconForFileAtUrl:fileUrl];
         }];
@@ -51,6 +51,7 @@
 
 @end
 
+#pragma mark - Clipboard Text Item Implementation
 @implementation CMClipboardTextItem
 
 - (NSString *)trimmedClipboardText {

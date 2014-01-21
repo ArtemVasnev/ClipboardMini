@@ -9,7 +9,7 @@
 #import <Cocoa/Cocoa.h>
 
 @interface CMSettingsViewController : NSViewController
-@property (nonatomic, assign) NSInteger numberOfVisibleItems;
-@property (nonatomic, assign) NSInteger updateInterval;
+@property (assign, nonatomic) NSInteger numberOfVisibleItems;
+@property (assign, nonatomic) NSInteger updateInterval;
 
 @end

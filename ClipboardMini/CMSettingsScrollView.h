@@ -9,7 +9,7 @@
 #import <Cocoa/Cocoa.h>
 
 @interface CMSettingsScrollView : NSScrollView {
-    NSLayoutConstraint *_heightConstraint;
+    NSLayoutConstraint *heightConstraint;
 }
 @property (nonatomic, assign) BOOL isShowed;
 @end

@@ -9,7 +9,7 @@
 #import "CMHighlightingView.h"
 
 @interface CMTextItemCell : CMHighlightingView {
-    IBOutlet NSTextField *textField;
+    __weak IBOutlet NSTextField *textField;
 }
 
 - (void)setClipboardText:(NSString *)text;

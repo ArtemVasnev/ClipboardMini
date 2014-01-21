@@ -9,21 +9,20 @@
 #import "CMStatusItemView.h"
 #import "CMChecker.h"
 
-
-#define VIEW_ICON_PADDING 3
+static CGFloat const CMNewItemIconPadding = 3.0f;
 
 @interface CMStatusItemView () {
-    NSRect _circleIconRect;
+    NSRect circleIconRect;
 }
 
-@property (nonatomic, assign) BOOL isNewPasteboardItem;
+@property (assign, nonatomic) BOOL isNewPasteboardItem;
 - (void)newPastrboardItem:(NSNotification *)notification;
 @end
 
 @implementation CMStatusItemView
 
 - (void)newPastrboardItem:(NSNotification *)notification {
-    if (!_isNewPasteboardItem && ![self.window isKeyWindow])
+    if (!self.isNewPasteboardItem && ![self.window isKeyWindow])
         self.isNewPasteboardItem = YES;
 }
 
@@ -32,7 +31,7 @@
     [self setNeedsDisplay:YES];
 }
 
-#pragma mark - 
+#pragma mark -
 #pragma mark Mouse Events
 - (BOOL)acceptsFirstMouse:(NSEvent *)theEvent {
     return YES;
@@ -43,7 +42,7 @@
     [_delegate viewDidClicked:self];
 }
 
-#pragma mark - 
+#pragma mark -
 #pragma mark Lifecycle
 
 - (id)init {
@@ -51,7 +50,7 @@
     NSRect frame = NSMakeRect(0, 0, viewSide, viewSide);
     self = [super initWithFrame:frame];
     if (self) {
-        _circleIconRect = NSInsetRect(frame, VIEW_ICON_PADDING, VIEW_ICON_PADDING);
+        circleIconRect = NSInsetRect(frame, CMNewItemIconPadding, CMNewItemIconPadding);
         
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(newPastrboardItem:)
@@ -69,12 +68,13 @@
 - (void)drawRect:(NSRect)dirtyRect
 {
     // Drawing code here.
-    NSBezierPath *circlePath = [NSBezierPath bezierPathWithOvalInRect:_circleIconRect];
+    NSBezierPath *circlePath = [NSBezierPath bezierPathWithOvalInRect:circleIconRect];
     [[NSColor blackColor] setStroke];
     [circlePath stroke];
     
-    if (_isNewPasteboardItem) {
-        NSBezierPath *newItemCircle = [NSBezierPath bezierPathWithOvalInRect:CGRectInset(_circleIconRect, VIEW_ICON_PADDING, VIEW_ICON_PADDING)];
+    if (self.isNewPasteboardItem) {
+        NSBezierPath *newItemCircle = [NSBezierPath bezierPathWithOvalInRect:
+                                       CGRectInset(circleIconRect, CMNewItemIconPadding, CMNewItemIconPadding)];
         [[NSColor redColor] setStroke];
         [newItemCircle stroke];
     }

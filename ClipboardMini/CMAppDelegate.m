@@ -11,19 +11,19 @@
 #import "CMStatusItemView.h"
 
 @interface CMAppDelegate () <CMStatusItemViewDelegate>
-- (void)resignKeyWindow;
 @end
+
 @implementation CMAppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
     
     // Insert code here to initialize your application
-    _appStatusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
+    appStatusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
     
     CMStatusItemView *statusView = [[CMStatusItemView alloc] init];
     statusView.delegate = self;
-    _appStatusItem.view = statusView;
+    appStatusItem.view = statusView;
     
     [[CMChecker sharedClipboardChecker] seedChecker];
     
@@ -34,11 +34,12 @@
     */
 }
 
+/*
 - (void)resignKeyWindow {
     if ([_cbViewController.popover isShown])
         [_cbViewController.popover close];
-    
 }
+*/
 
 #pragma mark -
 #pragma mark StatusItem View Delegate

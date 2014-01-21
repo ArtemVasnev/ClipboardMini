@@ -9,12 +9,11 @@
 #import "CMSettingsViewController.h"
 
 // CMChecher
-static NSString * const CheckerUpdateInterval = @"CheckerUpdateInterval";
+static NSString * const CMCheckerUpdateInterval = @"CheckerUpdateInterval";
 static NSString * const CMUpdateIntervalDidChangeNotification = @"CMUpdateIntervalDidChangeNotification";
 
 // Item Scroll View
-
-static NSString * const ScrollViewVisibleRowNumber = @"VisibleRowNumber";
+static NSString * const CMScrollViewVisibleRowNumber = @"VisibleRowNumber";
 static NSString * const CMVisibleRowNumberDidChangeNotification = @"CMVisibleRowNumberDidChangeNotification";
 
 
@@ -28,21 +27,21 @@ static NSString * const CMVisibleRowNumberDidChangeNotification = @"CMVisibleRow
     _updateInterval = updateInterval;
   [[NSNotificationCenter defaultCenter] postNotificationName:CMUpdateIntervalDidChangeNotification
                                                       object:nil
-                                                    userInfo:@{CheckerUpdateInterval: @(_updateInterval)}];
+                                                    userInfo:@{CMCheckerUpdateInterval: @(_updateInterval)}];
 }
 
 - (void)setNumberOfVisibleItems:(NSInteger)numberOfVisibleItems {
     _numberOfVisibleItems = numberOfVisibleItems;
     [[NSNotificationCenter defaultCenter] postNotificationName:CMVisibleRowNumberDidChangeNotification
                                                         object:nil
-                                                      userInfo:@{ScrollViewVisibleRowNumber: @(_numberOfVisibleItems)}];
+                                                      userInfo:@{CMScrollViewVisibleRowNumber: @(_numberOfVisibleItems)}];
 }
 
 - (id)init {
     self = [super initWithNibName:@"CMSettingsViewController" bundle:nil];
     if (self) {
-        _numberOfVisibleItems = [[NSUserDefaults standardUserDefaults] integerForKey:ScrollViewVisibleRowNumber];
-        _updateInterval = [[NSUserDefaults standardUserDefaults] integerForKey:CheckerUpdateInterval];
+        _numberOfVisibleItems = [[NSUserDefaults standardUserDefaults] integerForKey:CMScrollViewVisibleRowNumber];
+        _updateInterval = [[NSUserDefaults standardUserDefaults] integerForKey:CMCheckerUpdateInterval];
     }
     return self;
 }
@@ -52,8 +51,8 @@ static NSString * const CMVisibleRowNumberDidChangeNotification = @"CMVisibleRow
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Initialization code here.
-        _numberOfVisibleItems = [[NSUserDefaults standardUserDefaults] integerForKey:ScrollViewVisibleRowNumber];
-        _updateInterval = [[NSUserDefaults standardUserDefaults] integerForKey:CheckerUpdateInterval];
+        _numberOfVisibleItems = [[NSUserDefaults standardUserDefaults] integerForKey:CMScrollViewVisibleRowNumber];
+        _updateInterval = [[NSUserDefaults standardUserDefaults] integerForKey:CMCheckerUpdateInterval];
     }
     return self;
 }

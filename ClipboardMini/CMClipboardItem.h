@@ -18,9 +18,9 @@
 
 #pragma mark - File Item
 @interface CMClipboardFileItem : CMClipboardItem
-@property (nonatomic, readonly) NSURL *fileUrl;
-@property (nonatomic, readonly) NSImage *icon;
-@property (nonatomic, readonly) NSString *fileName;
+@property (readonly, nonatomic) NSURL *fileUrl;
+@property (readonly, nonatomic) NSImage *icon;
+@property (readonly, nonatomic) NSString *fileName;
 
 - (id)initWithFileUrl:(NSURL *)fileUrl;
 + (instancetype)clipboardFileItem:(NSURL *)fileUrl;
@@ -28,8 +28,8 @@
 
 #pragma mark - Text Item
 @interface CMClipboardTextItem : CMClipboardItem
-@property (nonatomic, readonly) NSString *clipboardText;
-@property (nonatomic, readonly) NSString *trimmedClipboardText;
+@property (readonly, nonatomic) NSString *clipboardText;
+@property (readonly, nonatomic) NSString *trimmedClipboardText;
 
 - (id)initWithClipboardText:(NSString *)cText;
 + (instancetype)clipboardTextItem:(NSString *)cText;

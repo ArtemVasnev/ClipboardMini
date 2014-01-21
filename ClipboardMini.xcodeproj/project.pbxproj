@@ -105,7 +105,6 @@
 		AC6FF4981881C92800CAE89E /* NSWindow+canBecomeKeyWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSWindow+canBecomeKeyWindow.m"; sourceTree = "<group>"; };
 		AC92A1281884A7CA006C94E4 /* CMSettingsScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMSettingsScrollView.h; sourceTree = "<group>"; };
 		AC92A1291884A7CA006C94E4 /* CMSettingsScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMSettingsScrollView.m; sourceTree = "<group>"; };
-		AC9F697C18802FA600EF7807 /* CMNotificationNames.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMNotificationNames.h; sourceTree = "<group>"; };
 		ACCFFCFD1884247300D9FA88 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -172,7 +171,6 @@
 				AC62001918800805009771B3 /* NSURL+Helpers.m */,
 				AC2BB9951885C86600A0B42B /* NSLayoutConstraint+Helpers.h */,
 				AC2BB9961885C86600A0B42B /* NSLayoutConstraint+Helpers.m */,
-				AC9F697C18802FA600EF7807 /* CMNotificationNames.h */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";

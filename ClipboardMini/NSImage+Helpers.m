@@ -8,7 +8,7 @@
 
 #import "NSImage+Helpers.h"
 
-#define THUMB_SIDE 50
+static CGFloat const CMThumbnailSize = 50;
 
 @implementation NSImage (Helpers)
 
@@ -20,11 +20,14 @@
     CGSize imageSize = [image size];
     CGFloat ratio = imageSize.width / imageSize.height;
     
-    CGSize thumbSize = (ratio > 1) ? CGSizeMake(THUMB_SIDE, THUMB_SIDE / ratio) : CGSizeMake(THUMB_SIDE / ratio, THUMB_SIDE);
+    CGSize thumbSize = (ratio > 1) ? CGSizeMake(CMThumbnailSize, CMThumbnailSize / ratio) : CGSizeMake(CMThumbnailSize / ratio, CMThumbnailSize);
     
     NSImage *thumb = [[NSImage alloc] initWithSize:NSSizeFromCGSize(thumbSize)];
     [thumb lockFocus];
-    [image drawInRect:NSMakeRect(0, 0, thumbSize.width, thumbSize.height) fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
+    [image drawInRect:NSMakeRect(0, 0, thumbSize.width, thumbSize.height)
+             fromRect:NSZeroRect
+            operation:NSCompositeSourceOver
+             fraction:1.0];
     [thumb unlockFocus];
     return thumb;
 }

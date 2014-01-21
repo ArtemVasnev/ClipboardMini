@@ -11,7 +11,7 @@
 @protocol CMStatusItemViewDelegate;
 @interface CMStatusItemView : NSView
 
-@property (nonatomic, weak) id <CMStatusItemViewDelegate> delegate;
+@property (weak, nonatomic) id <CMStatusItemViewDelegate> delegate;
 @end
 
 @protocol CMStatusItemViewDelegate <NSObject>

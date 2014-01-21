@@ -9,14 +9,14 @@
 #import "CMItemsContentScrollView.h"
 #import "NSLayoutConstraint+Helpers.h"
 
-static NSString * const ScrollViewVisibleRowNumber = @"VisibleRowNumber";
+static NSString * const CMScrollViewVisibleRowNumber = @"VisibleRowNumber";
 static NSString * const CMVisibleRowNumberDidChangeNotification = @"CMVisibleRowNumberDidChangeNotification";
 
 @interface CMItemsContentScrollView () {
-    NSMutableArray *_sViews;
-    NSSize _itemSize;
-    NSSize _contentSize;
-    NSInteger _visibleRowNumber;
+    NSMutableArray *contentSubViews;
+    NSSize itemSize;
+    NSSize contentSize;
+    NSInteger visibleRowNumber;
 }
 - (void)cmVisibleRowNumberDidChange:(NSNotification *)notification;
 - (void)removeAllSubviews;
@@ -26,12 +26,12 @@ static NSString * const CMVisibleRowNumberDidChangeNotification = @"CMVisibleRow
 @implementation CMItemsContentScrollView
 
 - (void)cmVisibleRowNumberDidChange:(NSNotification *)notification {
-    NSInteger newRowNumber = [[notification.userInfo objectForKey:ScrollViewVisibleRowNumber] integerValue];
+    NSInteger newRowNumber = [[notification.userInfo objectForKey:CMScrollViewVisibleRowNumber] integerValue];
     
-    if (_visibleRowNumber != newRowNumber) {
-        _visibleRowNumber = newRowNumber;
-        [[NSUserDefaults standardUserDefaults] setInteger:_visibleRowNumber
-                                                   forKey:ScrollViewVisibleRowNumber];
+    if (visibleRowNumber != newRowNumber) {
+        visibleRowNumber = newRowNumber;
+        [[NSUserDefaults standardUserDefaults] setInteger:visibleRowNumber
+                                                   forKey:CMScrollViewVisibleRowNumber];
         [[NSUserDefaults standardUserDefaults] synchronize];
         [self reload];
     }
@@ -47,7 +47,7 @@ static NSString * const CMVisibleRowNumberDidChangeNotification = @"CMVisibleRow
 - (void)mouseUp:(NSEvent *)theEvent {
     CGPoint location = [theEvent locationInWindow];
     location = [self.documentView convertPoint:location fromView:nil];
-    NSInteger selectedItem = location.y / _itemSize.height;
+    NSInteger selectedItem = location.y / itemSize.height;
     [_delegate didSelectItemAtRow:selectedItem];
 }
 
@@ -56,38 +56,38 @@ static NSString * const CMVisibleRowNumberDidChangeNotification = @"CMVisibleRow
 
 - (void)layoutItemCells {
     
-    _itemSize = [[_sViews firstObject] bounds].size;
-    CGFloat totalHeight = _itemSize.height * [_sViews count];
-    CGFloat maxViewHeight = _itemSize.height * _visibleRowNumber;
-    _contentSize = CGSizeMake(_itemSize.width, totalHeight);
+    itemSize = [[contentSubViews firstObject] bounds].size;
+    CGFloat totalHeight = itemSize.height * [contentSubViews count];
+    CGFloat maxViewHeight = itemSize.height * visibleRowNumber;
+    contentSize = CGSizeMake(itemSize.width, totalHeight);
     
     CGFloat yOffset;
-    for (NSView *itemCell in _sViews) {
-        itemCell.frame = NSMakeRect(0, yOffset, _itemSize.width, _itemSize.height);
-        yOffset += _itemSize.height;
+    for (NSView *itemCell in contentSubViews) {
+        itemCell.frame = NSMakeRect(0, yOffset, itemSize.width, itemSize.height);
+        yOffset += itemSize.height;
     }
     
-    NSSize newSize = CGSizeMake(_itemSize.width, MIN(totalHeight, maxViewHeight));
+    NSSize newSize = CGSizeMake(itemSize.width, MIN(totalHeight, maxViewHeight));
     [_delegate didChangeContentSize:newSize];
     
-    [self removeConstraint:_heightConstraint];
-    _heightConstraint = [NSLayoutConstraint heightConstraintWithConstant:newSize.height
+    [self removeConstraint:heightConstraint];
+    heightConstraint = [NSLayoutConstraint heightConstraintWithConstant:newSize.height
                                                                  forItem:self];
-    [self addConstraint:_heightConstraint];
+    [self addConstraint:heightConstraint];
     [self layout];
 }
 
 - (void)removeAllSubviews {
-    for (NSView *sView in _sViews)
+    for (NSView *sView in contentSubViews)
         [sView removeFromSuperview];
-    [_sViews removeAllObjects];
+    [contentSubViews removeAllObjects];
 }
 
 #pragma mark -
 #pragma mark Public
 - (void)reload {
     
-    if (_sViews.count > 0)
+    if (contentSubViews.count > 0)
         [self removeAllSubviews];
     
     NSInteger numberOfItems = [_dataSource numberOfItemsInContentView:self];
@@ -95,14 +95,14 @@ static NSString * const CMVisibleRowNumberDidChangeNotification = @"CMVisibleRow
     for (NSInteger idx = 0; idx < numberOfItems; idx++) {
         NSView *itemCell = [_dataSource contentView:self itemCellForRow:idx];
         [self.documentView addSubview:itemCell];
-        [_sViews addObject:itemCell];
+        [contentSubViews addObject:itemCell];
     }
     
     // Scroll the contentView to top
     self.verticalScroller.floatValue = 0;
     [self.contentView scrollToPoint:NSMakePoint(0, 0)];
     
-    BOOL allowScrolling = (numberOfItems > _visibleRowNumber);
+    BOOL allowScrolling = (numberOfItems > visibleRowNumber);
     self.hasVerticalScroller = allowScrolling;
     self.verticalScrollElasticity = (allowScrolling) ? NSScrollElasticityAllowed : NSScrollElasticityNone;
     
@@ -114,11 +114,11 @@ static NSString * const CMVisibleRowNumberDidChangeNotification = @"CMVisibleRow
 
 - (void)layout {
     [super layout];
-    [self.documentView setFrame:(CGRect) {.size = _contentSize}];
+    [self.documentView setFrame:(CGRect) {.size = contentSize}];
 }
 
 - (void)awakeFromNib {
-    _sViews = [@[] mutableCopy];
+    contentSubViews = [@[] mutableCopy];
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
@@ -126,10 +126,10 @@ static NSString * const CMVisibleRowNumberDidChangeNotification = @"CMVisibleRow
     if (self) {
         
         NSUserDefaults *df = [NSUserDefaults standardUserDefaults];
-        _visibleRowNumber = [df integerForKey:ScrollViewVisibleRowNumber];
-        if (!_visibleRowNumber) {
-            _visibleRowNumber = 4;
-            [df setInteger:4 forKey:ScrollViewVisibleRowNumber];
+        visibleRowNumber = [df integerForKey:CMScrollViewVisibleRowNumber];
+        if (!visibleRowNumber) {
+            visibleRowNumber = 4;
+            [df setInteger:4 forKey:CMScrollViewVisibleRowNumber];
             [df synchronize];
         }
         
@@ -138,9 +138,9 @@ static NSString * const CMVisibleRowNumberDidChangeNotification = @"CMVisibleRow
                                                      name:CMVisibleRowNumberDidChangeNotification
                                                    object:nil];
         
-        _heightConstraint = [NSLayoutConstraint heightConstraintWithConstant:0
+        heightConstraint = [NSLayoutConstraint heightConstraintWithConstant:0
                                                                      forItem:self];
-        [self addConstraint:_heightConstraint];
+        [self addConstraint:heightConstraint];
     }
     return self;
 }

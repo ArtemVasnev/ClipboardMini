@@ -31,9 +31,10 @@
 }
 
 
+#pragma mark - 
+#pragma mark Lifecycle
 - (void)drawRect:(NSRect)dirtyRect
 {
-	
     if (_isHighlighted) {
         [[NSColor alternateSelectedControlColor] set];
         NSRectFillUsingOperation(dirtyRect, NSCompositeSourceOver);

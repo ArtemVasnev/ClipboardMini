@@ -8,19 +8,16 @@
 
 #import "CMChecker.h"
 
-static NSString * const CheckerUpdateInterval = @"CheckerUpdateInterval";
+static NSString * const CMCheckerUpdateInterval = @"CheckerUpdateInterval";
 static NSString * const CMUpdateIntervalDidChangeNotification = @"CMUpdateIntervalDidChangeNotification";
 
 NSString *CMClipboardNewItemNotification = @"ClipboardChecherNewItemNotification";
 
-
-
-static CMChecker *_clipboardChecker;
+static CMChecker *ClipboardChecker;
 
 @interface CMChecker () {
-    
-    NSTimer *_timer;
-    NSArray *_pboardTypes;
+    NSTimer *timer;
+    NSArray *pboardTypes;
     NSUInteger previousPboardChangeCount;
 }
 - (void)cmUpdateIntervalDidChange:(NSNotification *)notification;
@@ -30,8 +27,8 @@ static CMChecker *_clipboardChecker;
 @implementation CMChecker
 
 - (void)cmUpdateIntervalDidChange:(NSNotification *)notification {
-    NSInteger updateInterval = [[notification.userInfo objectForKey:CheckerUpdateInterval] integerValue];
-    [[NSUserDefaults standardUserDefaults] setInteger:updateInterval forKey:CheckerUpdateInterval];
+    NSInteger updateInterval = [[notification.userInfo objectForKey:CMCheckerUpdateInterval] integerValue];
+    [[NSUserDefaults standardUserDefaults] setInteger:updateInterval forKey:CMCheckerUpdateInterval];
     [[NSUserDefaults standardUserDefaults] synchronize];
 
     [self seedChecker];
@@ -47,7 +44,7 @@ static CMChecker *_clipboardChecker;
         
         for (NSPasteboardItem *item in [pBoard pasteboardItems]) {
             
-            NSString *availableType = [item availableTypeFromArray:_pboardTypes];
+            NSString *availableType = [item availableTypeFromArray:pboardTypes];
             if (!availableType)
                 continue;
             
@@ -66,19 +63,20 @@ static CMChecker *_clipboardChecker;
 
 - (void)seedChecker {
     
-    if (_timer)
+    if (timer)
         [self stopChecker];
-    NSInteger updateInterval = [[NSUserDefaults standardUserDefaults] integerForKey:CheckerUpdateInterval];
-    _timer = [NSTimer scheduledTimerWithTimeInterval:updateInterval
+    
+    NSInteger updateInterval = [[NSUserDefaults standardUserDefaults] integerForKey:CMCheckerUpdateInterval];
+    timer = [NSTimer scheduledTimerWithTimeInterval:updateInterval
                                               target:self
                                             selector:@selector(checkPasteboard:)
                                             userInfo:nil repeats:YES];
-    [_timer fire];
+    [timer fire];
 }
 
 - (void)stopChecker {
-    [_timer invalidate];
-    _timer = nil;
+    [timer invalidate];
+    timer = nil;
 }
 
 #pragma mark -
@@ -86,12 +84,12 @@ static CMChecker *_clipboardChecker;
 
 - (id)init {
     if (self = [super init]) {
-        _pboardTypes = @[(__bridge NSString *)kUTTypeFileURL, (__bridge NSString *)kUTTypeText];
+        pboardTypes = @[(__bridge NSString *)kUTTypeFileURL, (__bridge NSString *)kUTTypeText];
 
-        NSInteger updateInterval = [[NSUserDefaults standardUserDefaults] integerForKey:CheckerUpdateInterval];
+        NSInteger updateInterval = [[NSUserDefaults standardUserDefaults] integerForKey:CMCheckerUpdateInterval];
         if (!updateInterval) {
             [[NSUserDefaults standardUserDefaults] setInteger:1
-                                                       forKey:CheckerUpdateInterval];
+                                                       forKey:CMCheckerUpdateInterval];
             [[NSUserDefaults standardUserDefaults] synchronize];
         }
         
@@ -106,9 +104,9 @@ static CMChecker *_clipboardChecker;
 + (instancetype)sharedClipboardChecker {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        _clipboardChecker = [[CMChecker alloc] init];
+        ClipboardChecker = [[CMChecker alloc] init];
     });
-    return _clipboardChecker;
+    return ClipboardChecker;
 }
 
 - (void)dealloc {

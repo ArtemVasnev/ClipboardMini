@@ -9,6 +9,7 @@
 #import "NSWindow+canBecomeKeyWindow.h"
 
 @implementation NSWindow (canBecomeKeyWindow)
+
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wobjc-protocol-method-implementation"
 

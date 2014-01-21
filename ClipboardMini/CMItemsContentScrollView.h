@@ -13,12 +13,11 @@
 @protocol CMItemsContentScrollViewDataSource;
 
 @interface CMItemsContentScrollView : NSScrollView {
-//    __weak IBOutlet NSScrollView *contentScrollView;
-    NSLayoutConstraint *_heightConstraint;
+    NSLayoutConstraint *heightConstraint;
 }
-@property (nonatomic, assign) BOOL suggestionMode;
-@property (nonatomic, weak) IBOutlet id <CMItemsContentScrollViewDelegate> delegate;
-@property (nonatomic, weak) IBOutlet id <CMItemsContentScrollViewDataSource> dataSource;
+@property (assign, nonatomic) BOOL suggestionMode;
+@property (weak, nonatomic) IBOutlet id <CMItemsContentScrollViewDelegate> delegate;
+@property (weak, nonatomic) IBOutlet id <CMItemsContentScrollViewDataSource> dataSource;
 
 - (void)reload;
 

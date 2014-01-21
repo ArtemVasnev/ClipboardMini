@@ -12,9 +12,8 @@
 @interface NSImage (Helpers)
 
 + (NSImage *)createThumbnailFromImageAtUrl:(NSURL *)imageUrl;
-
 + (NSImage *)getIconForFileAtUrl:(NSURL *)fileUrl;
-@end
 
+@end
 
 NSOperationQueue *IHQueue ();

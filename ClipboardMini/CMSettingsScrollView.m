@@ -11,10 +11,9 @@
 #import "NSLayoutConstraint+Helpers.h"
 
 @interface CMSettingsScrollView () {
-    CMSettingsViewController *_settingsController;
+    CMSettingsViewController *settingsController;
 }
 @end
-
 
 @implementation CMSettingsScrollView
 
@@ -24,18 +23,18 @@
     
     CGFloat newHeight = 0;
     if (show) {
-        _settingsController = [[CMSettingsViewController alloc] init];
-        [self.documentView addSubview:_settingsController.view];
-        newHeight = CGRectGetHeight(_settingsController.view.bounds);
+        settingsController = [[CMSettingsViewController alloc] init];
+        [self.documentView addSubview:settingsController.view];
+        newHeight = CGRectGetHeight(settingsController.view.bounds);
     } else {
-        [_settingsController.view removeFromSuperview];
-        _settingsController = nil;
+        [settingsController.view removeFromSuperview];
+        settingsController = nil;
     }
     
-    [self removeConstraint:_heightConstraint];
-    _heightConstraint = [NSLayoutConstraint heightConstraintWithConstant:newHeight
+    [self removeConstraint:heightConstraint];
+    heightConstraint = [NSLayoutConstraint heightConstraintWithConstant:newHeight
                                                                  forItem:self];
-    [self addConstraint:_heightConstraint];
+    [self addConstraint:heightConstraint];
     
     _isShowed = show;
     [self layout];
@@ -47,9 +46,9 @@
     [super layout];
     
     CGFloat docViewHeight = 0;
-    if (_settingsController) {
-        _settingsController.view.frame = _settingsController.view.bounds;
-        docViewHeight = CGRectGetHeight(_settingsController.view.bounds);
+    if (settingsController) {
+        settingsController.view.frame = settingsController.view.bounds;
+        docViewHeight = CGRectGetHeight(settingsController.view.bounds);
     }
     
     [self.documentView setFrame:CGRectMake(0, 0, CGRectGetWidth(self.bounds), docViewHeight)];

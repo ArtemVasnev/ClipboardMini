@@ -14,10 +14,8 @@
     __weak IBOutlet CMItemsContentScrollView *contentView;
     __weak IBOutlet NSSearchField *searchField;
     __weak IBOutlet CMSettingsScrollView *settingsView;
-    
-    NSLayoutConstraint *_contentViewHeightConstraint;
 }
-@property (nonatomic, strong) NSPopover *popover;
+@property (strong, nonatomic) NSPopover *popover;
 - (IBAction)displaySettings:(id)sender;
 
 @end
